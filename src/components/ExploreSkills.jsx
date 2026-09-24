@@ -1,6 +1,7 @@
 
 import { SkillCard } from "./SkillCard";
-export function ExploreSkills() {
+export function ExploreSkills({ search }) {
+
     const skills = [{
         courseName: "React",
         category: "Web Development",
@@ -19,22 +20,32 @@ export function ExploreSkills() {
         peopleCount: 10
     }
     ]
+    const filteredSkills = skills.filter((skill) =>
+        skill.courseName.toLowerCase().includes(search.toLowerCase()) ||
+        skill.category.toLowerCase().includes(search.toLowerCase())
+    );
+
 
     return (
+
         <section className="Explore-Skills">
             <h1>Explore Skills</h1>
             <p>Discover new skills to learn and teach.</p>
 
             <div className="Skill-Card-Container">
-                {skills.map((skill) => {
-                    return (
-                        <SkillCard
-                            courseName={skill.courseName}
-                            category={skill.category}
-                            peopleCount={skill.peopleCount}
-                        />
-                    )
-                })}
+                {filteredSkills.length === 0 ? (
+                    <p>No skills found.</p>
+                ) : (
+                    filteredSkills.map((skill) => {
+                        return (
+                            <SkillCard
+                                courseName={skill.courseName}
+                                category={skill.category}
+                                peopleCount={skill.peopleCount}
+                            />
+                        )
+                    })
+                )}
             </div>
         </section>
     )
