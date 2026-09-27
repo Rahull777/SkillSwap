@@ -55,7 +55,7 @@
 }
 
 .Navbar-link,
-.Navbar-login {
+.Navbar-login, .Navbar-logout {
   position: relative;
   padding: 9px 12px;
   border-radius: 8px;
@@ -67,7 +67,7 @@
 }
 
 .Navbar-link:hover,
-.Navbar-login:hover {
+.Navbar-login:hover, .Navbar-logout:hover {
   color: #302a9e;
   background: #f3f3ff;
 }
@@ -149,6 +149,14 @@
 .Navbar-login:hover {
   background: transparent;
 }
+.Navbar-logout{
+  padding-right: 2px;
+  padding-left: 2px;
+  white-space: nowrap;
+}
+.Navbar-logout:hover {
+  background: transparent;
+}
 
 .Navbar-profile {
   display: inline-flex;
@@ -161,6 +169,8 @@
 }
 
 .Navbar-avatar {
+  text-decoration: none;
+  color: inherit;
   display: grid;
   width: 34px;
   height: 34px;
@@ -175,6 +185,8 @@
 
 .Navbar-profile:hover .Navbar-avatar {
   background: #d9d7ff;
+  text-decoration: none;
+  color: inherit;
 }
 
 @media (max-width: 760px) {
@@ -212,6 +224,8 @@
 
   .Navbar-profile-name {
     display: none;
+    text-decoration: none;
+    color: inherit;
   }
 }
 .Hero{
@@ -269,4 +283,21 @@
     color: white;
     text-decoration: none;
     margin-left: 37px;
+}
+
+.Login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.Login-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 350px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }

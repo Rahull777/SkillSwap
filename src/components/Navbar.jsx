@@ -1,7 +1,13 @@
-
-export function Navbar({search,setSearch}){
-    return(
+import { Link,useNavigate } from "react-router-dom";
+export function Navbar({ search, setSearch, loggedIn, setLoggedIn }) {
+    const navigate = useNavigate();
+    function handleLogout() {
+        setLoggedIn(false);
+        navigate("/login");
+    }
+    return (
         <nav className="Navbar" aria-label="Main navigation">
+
             <div className="Navbar-inner">
                 <a className="Navbar-brand" href="/" aria-label="SkillSwap home">
                     <span className="Navbar-brand-mark" aria-hidden="true">S</span>
@@ -19,19 +25,26 @@ export function Navbar({search,setSearch}){
                             <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" />
                         </svg>
                         <input type="search" placeholder="Search skills" aria-label="Search skills"
-                         value={search}
-                         onChange={(event) =>{
-                            setSearch(event.target.value)
-                         }}
+                            value={search}
+                            onChange={(event) => {
+                                setSearch(event.target.value)
+                            }}
                         />
                     </label>
-                    <a className="Navbar-login" href="#login">Log in</a>
-                    <a className="Navbar-profile" href="#profile" aria-label="Open profile">
-                        <span className="Navbar-avatar">R</span>
-                        <span className="Navbar-profile-name">Profile</span>
-                    </a>
+                    {loggedIn ? (
+                        <a className="Navbar-profile" href="#profile" aria-label="Open profile">
+                            <Link to="/profile" className="Navbar-avatar">R</Link>
+                            <Link to="/profile" className="Navbar-profile-name">Profile</Link>
+                            <a onClick={handleLogout} className="Navbar-logout">
+                                Logout
+                            </a>
+                        </a>
+                    ) : (
+                        <Link to="/login" className="Navbar-login">Log in</Link>
+                    )}
                 </div>
             </div>
+
         </nav>
     )
 }

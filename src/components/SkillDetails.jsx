@@ -1,31 +1,32 @@
-import {useParams} from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { Link } from "react-router-dom";
 export function SkillDetails() {
-    const {skillName} = useParams();
+    const { skillName } = useParams();
 
     const skills = {
-    react: {
-        name: "React",
-        category: "Web Development",
-        description: "Learn React by exchanging skills with other people.",
-        peopleCount: 12
-    },
+        react: {
+            name: "React",
+            category: "Web Development",
+            description: "Learn React by exchanging skills with other people.",
+            peopleCount: 12
+        },
 
-    python: {
-        name: "Python",
-        category: "Programming",
-        description: "Learn Python from people who already know it.",
-        peopleCount: 20
-    }
-};
+        python: {
+            name: "Python",
+            category: "Programming",
+            description: "Learn Python from people who already know it.",
+            peopleCount: 20
+        }
+    };
     const skill = skills[skillName];
     if (!skill) {
-    return (
-        <div>
-            <h1>Skill Not Found</h1>
-            <p>We couldn't find the skill you're looking for.</p>
-        </div>
-    )
-}
+        return (
+            <div>
+                <h1>Skill Not Found</h1>
+                <p>We couldn't find the skill you're looking for.</p>
+            </div>
+        )
+    }
     return (
         <div>
             <h1> {skill.name}</h1>
@@ -33,7 +34,9 @@ export function SkillDetails() {
             <p>{skill.description}</p>
             <p>{skill.peopleCount} people can teach this skill.</p>
 
-            <button>Find a Teacher</button>
+            <Link to={`/teachers/${skillName}`}>
+                Find a Teacher
+            </Link>
         </div>
     )
 }
