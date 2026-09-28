@@ -301,3 +301,18 @@
     border: 1px solid #ddd;
     border-radius: 10px;
 }
+.Signup-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.Signup-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 350px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}

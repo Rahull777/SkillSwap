@@ -10,6 +10,7 @@ import { TeacherProfile } from './components/TeacherProfile';
 import { SwapRequest } from './components/SwapRequests';
 import {Login} from './components/Login';
 import {Profile} from './components/Profile';
+import {Signup} from './components/signup';
 import './App.css';
 function App() {
   const [search, setSearch] = useState("");
@@ -50,6 +51,10 @@ function App() {
         <Route
           path="/login"
           element={<Login setLoggedIn={setLoggedIn} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup />}
         />
       </Routes>
     </BrowserRouter>
