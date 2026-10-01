@@ -6,10 +6,26 @@ export function Profile() {
     const [learningskills, setLearningSkills] = useState([]);
     const [newLearning,setNewLearning]=useState("");
 
-    function handleAddskills(){
-        setTeachingSkills([...teachingskills, newSkill]);
-        setNewSkill("");
-    }
+    async function handleAddskills() {
+    const response = await fetch("http://localhost:3000/skills", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            courseName: newSkill,
+            category: "General",
+            peopleCount: 1
+        })
+    });
+
+    const data = await response.json();
+
+    console.log("Backend response:", data);
+
+    setTeachingSkills([...teachingskills, newSkill]);
+    setNewSkill("");
+}
 
     function handleRemoveSkills(skilltoremove){
         const updatedskills=teachingskills.filter((skill)=>{

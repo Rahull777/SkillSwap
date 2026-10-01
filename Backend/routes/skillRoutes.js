@@ -44,4 +44,13 @@ skillRouter.get("/:skillName", (req, res) => {
     }
 });
 
+skillRouter.post("/", (req, res) => {
+    const newSkill = req.body;
+
+    res.status(201).json({
+        message: "Skill created successfully",
+        skill: newSkill
+    });
+});
+
 module.exports = skillRouter;
