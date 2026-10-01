@@ -1,25 +1,17 @@
 
 import { SkillCard } from "./SkillCard";
+import { useEffect, useState } from "react";
+
 export function ExploreSkills({ search }) {
 
-    const skills = [{
-        courseName: "React",
-        category: "Web Development",
-        peopleCount: 12
-    }, {
-        courseName: "Python",
-        category: "Programming",
-        peopleCount: 20
-    }, {
-        courseName: "UI/UX Design",
-        category: "Design",
-        peopleCount: 15
-    }, {
-        courseName: "JavaScript",
-        category: "Web Development",
-        peopleCount: 10
-    }
-    ]
+    const [skills, setSkills] = useState([]);
+    useEffect(() =>{
+        fetch("http://localhost:3000/skills")
+        .then((response) => response.json())
+        .then((data) => {
+            setSkills(data);
+        });
+    },[])
     const filteredSkills = skills.filter((skill) =>
         skill.courseName.toLowerCase().includes(search.toLowerCase()) ||
         skill.category.toLowerCase().includes(search.toLowerCase())
