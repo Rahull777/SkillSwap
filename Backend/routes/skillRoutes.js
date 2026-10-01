@@ -1,6 +1,6 @@
-const express=require('express');
+const express = require('express');
 
-const skillRouter=express.Router();
+const skillRouter = express.Router();
 
 const skills = [
     {
@@ -29,12 +29,19 @@ const skills = [
     }
 ];
 
-skillRouter.get("/",(req,res,next)=>{
+skillRouter.get("/", (req, res, next) => {
     res.json(skills);
 
 })
 skillRouter.get("/:skillName", (req, res) => {
-    res.send(`You are viewing ${req.params.skillName}`);
+    const skill = skills.find((skill) => {
+        return skill.courseName.toLowerCase() === req.params.skillName.toLowerCase();
+    })
+    if (skill) {
+        res.json(skill);
+    } else {
+        res.status(404).json({ message: "Skill not found" });
+    }
 });
 
-module.exports=skillRouter;
+module.exports = skillRouter;
