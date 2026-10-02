@@ -1,42 +1,24 @@
 const express = require('express');
+const { getDb } = require("../config/db");
 
 const skillRouter = express.Router();
 
-const skills = [
-    {
-        id: 1,
-        courseName: "React",
-        category: "Web Development",
-        peopleCount: 12
-    },
-    {
-        id: 2,
-        courseName: "Python",
-        category: "Programming",
-        peopleCount: 20
-    },
-    {
-        id: 3,
-        courseName: "UI/UX Design",
-        category: "Design",
-        peopleCount: 15
-    },
-    {
-        id: 4,
-        courseName: "JavaScript",
-        category: "Web Development",
-        peopleCount: 10
-    }
-];
 
-skillRouter.get("/", (req, res, next) => {
+
+skillRouter.get("/", async (req, res, next) => {
+    const db = getDb();
+    const skills=await db.collection("skills").find().toArray();
+
     res.json(skills);
+});
 
-})
-skillRouter.get("/:skillName", (req, res) => {
-    const skill = skills.find((skill) => {
-        return skill.courseName.toLowerCase() === req.params.skillName.toLowerCase();
+
+skillRouter.get("/:skillName", async (req, res) => {
+    const db=getDb();
+    const skill=await db.collection("skills").findOne({
+        courseName: req.params.skillName
     })
+
     if (skill) {
         res.json(skill);
     } else {
@@ -44,12 +26,15 @@ skillRouter.get("/:skillName", (req, res) => {
     }
 });
 
-skillRouter.post("/", (req, res) => {
+skillRouter.post("/", async (req, res) => {
     const newSkill = req.body;
+    const db = getDb();
+
+    const result= await db.collection("skills").insertOne(newSkill);
 
     res.status(201).json({
         message: "Skill created successfully",
-        skill: newSkill
+        skillId: result.insertedId
     });
 });
 
