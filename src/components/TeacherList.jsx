@@ -1,52 +1,37 @@
 import { TeacherCard } from "./TeacherCard";
 import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export function TeacherList() {
     const { skillName } = useParams();
 
-    const teachers = [
-        {   
-            id:"aman",
-            name: "Aman",
-            skill: "React",
-            description: "Frontend developer who can teach React."
-        },
-        {   
-            id:"priya",
-            name: "Priya",
-            skill: "React",
-            description: "Enjoys teaching React to beginners."
-        },
-        {
-            id:"neha",
-            name: "Neha",
-            skill: "React",
-            description: "React developer with experience in web development."
-        },
-        {
-            id:"rohit",
-            name: "Rohit",
-            skill: "Python",
-            description: "Python developer who enjoys teaching beginners."
-        }
-    ];
+    const [teachers, setTeachers] = useState([]);
 
-    const filteredTeachers = teachers.filter((teacher) =>
-        teacher.skill.toLowerCase() === skillName.toLowerCase()
-    );
+    useEffect(() => {
+        fetch(`http://localhost:3000/teachers/${skillName}`)
+            .then((response) => response.json())
+            .then((data) => {
+                setTeachers(data);
+            });
+    }, [skillName]);
+
+    if (teachers.length === 0) {
+        return <p>No teachers found.</p>;
+    }
+
 
     return (
         <div>
             <h2>People who can teach {skillName}</h2>
 
             <div>
-                {filteredTeachers.map((teacher) => {
+                {teachers.map((teacher) => {
                     return (
                         <TeacherCard
-                            id={teacher.id}
+                            key={teacher._id}
                             name={teacher.name}
-                            skill={teacher.skill}
-                            description={teacher.description}
+                            skill={skillName}
+                            description={teacher.experience}
                         />
                     );
                 })}

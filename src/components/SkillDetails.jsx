@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { useParams,Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
+
 export function SkillDetails() {
     const { skillName } = useParams();
 
@@ -25,6 +25,7 @@ export function SkillDetails() {
         <div>
             <h1>{skill.courseName}</h1>
             <p>Category: {skill.category}</p>
+            <p>{skill.description}</p>
             <p>{skill.peopleCount} people can teach this skill.</p>
 
             <Link to={`/teachers/${skillName}`}>
