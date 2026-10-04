@@ -42,6 +42,21 @@ swapRequestRouter.post("/", authMiddleware, async (req, res, next) => {
 
 
 
+swapRequestRouter.get("/received", authMiddleware, async (req, res, next) => {
+    try {
+        const db = getDb();
 
+        const requests = await db.collection("swapRequests")
+            .find({
+                receiverId: new ObjectId(req.user.userId)
+            })
+            .toArray();
+
+        res.json(requests);
+
+    } catch (error) {
+        next(error);
+    }
+});
 
 module.exports = swapRequestRouter;
