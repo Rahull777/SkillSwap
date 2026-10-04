@@ -59,4 +59,47 @@ swapRequestRouter.get("/received", authMiddleware, async (req, res, next) => {
     }
 });
 
+
+
+swapRequestRouter.patch("/:id", authMiddleware, async (req, res, next) => {
+    try {
+        const db = getDb();
+
+        const { status } = req.body;
+
+        if (status !== "accepted" && status !== "rejected") {
+            return res.status(400).json({
+                message: "Status must be accepted or rejected"
+            });
+        }
+
+        const result = await db.collection("swapRequests").updateOne(
+            {
+                _id: new ObjectId(req.params.id),
+                receiverId: new ObjectId(req.user.userId)
+            },
+            {
+                $set: {
+                    status: status
+                }
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                message: "Swap request not found"
+            });
+        }
+
+        res.json({
+            message: `Swap request ${status} successfully`
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+
 module.exports = swapRequestRouter;

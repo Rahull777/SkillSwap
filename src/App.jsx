@@ -11,6 +11,7 @@ import { SwapRequest } from './components/SwapRequests';
 import {Login} from './components/Login';
 import {Profile} from './components/Profile';
 import {Signup} from './components/signup';
+import {Requests} from './components/Requests';
 import './App.css';
 function App() {
   const [search, setSearch] = useState("");
@@ -55,6 +56,9 @@ function App() {
         <Route
           path="/signup"
           element={<Signup />}
+        />
+        <Route path="/requests" 
+        element={<Requests />} 
         />
       </Routes>
     </BrowserRouter>
