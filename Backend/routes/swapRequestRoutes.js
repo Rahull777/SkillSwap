@@ -46,19 +46,42 @@ swapRequestRouter.get("/received", authMiddleware, async (req, res, next) => {
     try {
         const db = getDb();
 
+        const userId = new ObjectId(req.user.userId);
+
         const requests = await db.collection("swapRequests")
             .find({
-                receiverId: new ObjectId(req.user.userId)
+                receiverId: userId
             })
             .toArray();
 
-        res.json(requests);
+        const requestsWithUsers = await Promise.all(
+            requests.map(async (request) => {
+
+                const requester = await db.collection("users").findOne(
+                    { _id: request.requesterId },
+                    {
+                        projection: {
+                            name: 1,
+                            email: 1,
+                            teachingSkills: 1,
+                            learningSkills: 1
+                        }
+                    }
+                );
+
+                return {
+                    ...request,
+                    requester
+                };
+            })
+        );
+
+        res.json(requestsWithUsers);
 
     } catch (error) {
         next(error);
     }
 });
-
 
 
 swapRequestRouter.patch("/:id", authMiddleware, async (req, res, next) => {

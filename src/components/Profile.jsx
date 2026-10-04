@@ -12,7 +12,7 @@ export function Profile() {
     const [learningskills, setLearningSkills] = useState([]);
     const [newLearning, setNewLearning] = useState("");
 
-    
+
 
 
     //so that data remains on page even if page refreshes
@@ -36,7 +36,17 @@ export function Profile() {
 
     //Add a new skill
     async function handleAddskills() {
-        const updatedTeachingSkills = [...teachingskills, newSkill];
+        const skill = newSkill.trim();
+
+        if (!skill) {
+            return;
+        }
+
+        if (teachingskills.includes(skill)) {
+            return;
+        }
+
+        const updatedTeachingSkills = [...teachingskills, skill];
 
         const response = await fetch("http://localhost:3000/users/me", {
             method: "PUT",
@@ -52,8 +62,6 @@ export function Profile() {
 
         const data = await response.json();
 
-        console.log("Backend response:", data);
-
         if (!response.ok) {
             console.log("Failed to update profile:", data);
             return;
@@ -63,96 +71,103 @@ export function Profile() {
         setNewSkill("");
     }
 
-
     //Remove a teaching skill
     async function handleRemoveSkills(skilltoremove) {
-    const updatedSkills = teachingskills.filter((skill) => {
-        return skill !== skilltoremove;
-    });
+        const updatedSkills = teachingskills.filter((skill) => {
+            return skill !== skilltoremove;
+        });
 
-    const response = await fetch("http://localhost:3000/users/me", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            teachingSkills: updatedSkills,
-            learningSkills: learningskills
-        })
-    });
+        const response = await fetch("http://localhost:3000/users/me", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                teachingSkills: updatedSkills,
+                learningSkills: learningskills
+            })
+        });
 
-    const data = await response.json();
+        const data = await response.json();
 
-    console.log("Backend response:", data);
+        console.log("Backend response:", data);
 
-    if (!response.ok) {
-        console.log("Failed to update profile:", data);
-        return;
+        if (!response.ok) {
+            console.log("Failed to update profile:", data);
+            return;
+        }
+
+        setTeachingSkills(updatedSkills);
     }
-
-    setTeachingSkills(updatedSkills);
-}
 
 
     //Add a learning skill
     async function handleNewSkilltolearn() {
-    const updatedLearningSkills = [...learningskills, newLearning];
+        const skill = newLearning.trim();
 
-    const response = await fetch("http://localhost:3000/users/me", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            teachingSkills: teachingskills,
-            learningSkills: updatedLearningSkills
-        })
-    });
+        if (!skill) {
+            return;
+        }
 
-    const data = await response.json();
+        if (learningskills.includes(skill)) {
+            return;
+        }
 
-    console.log("Backend response:", data);
+        const updatedLearningSkills = [...learningskills, skill];
 
-    if (!response.ok) {
-        console.log("Failed to update profile:", data);
-        return;
+        const response = await fetch("http://localhost:3000/users/me", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                teachingSkills: teachingskills,
+                learningSkills: updatedLearningSkills
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.log("Failed to update profile:", data);
+            return;
+        }
+
+        setLearningSkills(updatedLearningSkills);
+        setNewLearning("");
     }
-
-    setLearningSkills(updatedLearningSkills);
-    setNewLearning("");
-}
 
     //Remove a learning skill
     async function handleRemoveLearningSkills(skilltoremove) {
-    const updatedSkills = learningskills.filter((skill) => {
-        return skill !== skilltoremove;
-    });
+        const updatedSkills = learningskills.filter((skill) => {
+            return skill !== skilltoremove;
+        });
 
-    const response = await fetch("http://localhost:3000/users/me", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            teachingSkills: teachingskills,
-            learningSkills: updatedSkills
-        })
-    });
+        const response = await fetch("http://localhost:3000/users/me", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                teachingSkills: teachingskills,
+                learningSkills: updatedSkills
+            })
+        });
 
-    const data = await response.json();
+        const data = await response.json();
 
-    console.log("Backend response:", data);
+        console.log("Backend response:", data);
 
-    if (!response.ok) {
-        console.log("Failed to update profile:", data);
-        return;
+        if (!response.ok) {
+            console.log("Failed to update profile:", data);
+            return;
+        }
+
+        setLearningSkills(updatedSkills);
     }
-
-    setLearningSkills(updatedSkills);
-}
 
     return (
         <div>

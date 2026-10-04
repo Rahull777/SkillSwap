@@ -2,24 +2,31 @@ import { useEffect, useState } from "react";
 
 export function Requests() {
     const [requests, setRequests] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchRequests() {
-            const response = await fetch(
-                "http://localhost:3000/swap-requests/received",
-                {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.getItem("token")}`
+            try {
+                const response = await fetch(
+                    "http://localhost:3000/swap-requests/received",
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${localStorage.getItem("token")}`
+                        }
                     }
+                );
+
+                const data = await response.json();
+
+                console.log("Received requests:", data);
+
+                if (response.ok) {
+                    setRequests(data);
                 }
-            );
-
-            const data = await response.json();
-
-            console.log("Received requests:", data);
-
-            if (response.ok) {
-                setRequests(data);
+            } catch (error) {
+                console.log("Failed to fetch requests:", error);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -28,66 +35,71 @@ export function Requests() {
 
 
     async function handleAccept(requestId) {
-    const response = await fetch(
-        `http://localhost:3000/swap-requests/${requestId}`,
-        {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                status: "accepted"
-            })
-        }
-    );
-
-    const data = await response.json();
-
-    console.log("Accept response:", data);
-
-    if (response.ok) {
-        setRequests((currentRequests) =>
-            currentRequests.map((request) =>
-                request._id === requestId
-                    ? { ...request, status: "accepted" }
-                    : request
-            )
+        const response = await fetch(
+            `http://localhost:3000/swap-requests/${requestId}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    status: "accepted"
+                })
+            }
         );
-    }
-}
 
+        const data = await response.json();
 
+        console.log("Accept response:", data);
 
-async function handleReject(requestId) {
-    const response = await fetch(
-        `http://localhost:3000/swap-requests/${requestId}`,
-        {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                status: "rejected"
-            })
+        if (response.ok) {
+            setRequests((currentRequests) =>
+                currentRequests.map((request) =>
+                    request._id === requestId
+                        ? { ...request, status: "accepted" }
+                        : request
+                )
+            );
         }
-    );
-
-    const data = await response.json();
-
-    console.log("Reject response:", data);
-
-    if (response.ok) {
-        setRequests((currentRequests) =>
-            currentRequests.map((request) =>
-                request._id === requestId
-                    ? { ...request, status: "rejected" }
-                    : request
-            )
-        );
     }
-}
+
+
+
+    async function handleReject(requestId) {
+        const response = await fetch(
+            `http://localhost:3000/swap-requests/${requestId}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    status: "rejected"
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        console.log("Reject response:", data);
+
+        if (response.ok) {
+            setRequests((currentRequests) =>
+                currentRequests.map((request) =>
+                    request._id === requestId
+                        ? { ...request, status: "rejected" }
+                        : request
+                )
+            );
+        }
+    }
+
+    if (loading) {
+        return <p>Loading requests...</p>;
+    }
+
 
     return (
         <div>
@@ -98,22 +110,23 @@ async function handleReject(requestId) {
             ) : (
                 requests.map((request) => (
                     <div key={request._id}>
-                        <p>Skill: {request.skill}</p>
+                        <h3>
+                            {request.requester?.name} wants to learn {request.skill}
+                        </h3>
+
                         <p>Status: {request.status}</p>
 
-{request.status === "pending" && (
-    <>
-        <button onClick={() => handleAccept(request._id)}>
-            Accept
-        </button>
+                        {request.status === "pending" && (
+                            <>
+                                <button onClick={() => handleAccept(request._id)}>
+                                    Accept
+                                </button>
 
-        <button onClick={() => handleReject(request._id)}>
-            Reject
-        </button>
-    </>
-)}
-
-
+                                <button onClick={() => handleReject(request._id)}>
+                                    Reject
+                                </button>
+                            </>
+                        )}
                     </div>
                 ))
             )}
