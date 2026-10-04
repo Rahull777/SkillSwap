@@ -12,6 +12,7 @@ import {Login} from './components/Login';
 import {Profile} from './components/Profile';
 import {Signup} from './components/signup';
 import {Requests} from './components/Requests';
+import { MySwaps } from "./components/MySwaps";
 import './App.css';
 function App() {
   const [search, setSearch] = useState("");
@@ -59,6 +60,9 @@ function App() {
         />
         <Route path="/requests" 
         element={<Requests />} 
+        />
+        <Route path="/my-swaps"
+        element={<MySwaps />}
         />
       </Routes>
     </BrowserRouter>

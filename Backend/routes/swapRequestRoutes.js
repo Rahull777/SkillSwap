@@ -102,4 +102,53 @@ swapRequestRouter.patch("/:id", authMiddleware, async (req, res, next) => {
 
 
 
+swapRequestRouter.get("/my-swaps", authMiddleware, async (req, res, next) => {
+    try {
+        const db = getDb();
+
+        const userId = new ObjectId(req.user.userId);
+
+        const swaps = await db.collection("swapRequests")
+            .find({
+                $or: [
+                    { requesterId: userId },
+                    { receiverId: userId }
+                ],
+                status: "accepted"
+            })
+            .toArray();
+
+        const swapsWithUsers = await Promise.all(
+            swaps.map(async (swap) => {
+
+                const otherUserId =
+                    swap.requesterId.toString() === userId.toString()
+                        ? swap.receiverId
+                        : swap.requesterId;
+
+                const otherUser = await db.collection("users").findOne(
+                    { _id: otherUserId },
+                    {
+                        projection: {
+                            name: 1,
+                            email: 1,
+                            teachingSkills: 1,
+                            learningSkills: 1
+                        }
+                    }
+                );
+
+                return {
+                    ...swap,
+                    otherUser
+                };
+            })
+        );
+
+        res.json(swapsWithUsers);
+
+    } catch (error) {
+        next(error);
+    }
+});
 module.exports = swapRequestRouter;
