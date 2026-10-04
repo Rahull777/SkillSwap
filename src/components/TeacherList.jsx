@@ -28,11 +28,12 @@ export function TeacherList() {
                 {teachers.map((teacher) => {
                     return (
                         <TeacherCard
-                            key={teacher._id}
-                            name={teacher.name}
-                            skill={skillName}
-                            description={teacher.experience}
-                        />
+    key={teacher._id}
+    id={teacher._id}
+    name={teacher.name}
+    skill={skillName}
+    description={`Can teach ${skillName}`}
+/>
                     );
                 })}
             </div>

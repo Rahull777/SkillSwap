@@ -37,7 +37,7 @@ function App() {
           element={<TeacherList />}
         />
         <Route
-          path="/teacher/:id"
+          path="/teacher/:id/:skill"
           element={<TeacherProfile />}
         />
         <Route

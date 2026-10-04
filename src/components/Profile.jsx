@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 
 export function Profile() {
 
-    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("token");
+
+    const [user, setUser] = useState(null);
 
     const [teachingskills, setTeachingSkills] = useState([]);
     const [newSkill, setNewSkill] = useState("");
@@ -10,29 +12,37 @@ export function Profile() {
     const [learningskills, setLearningSkills] = useState([]);
     const [newLearning, setNewLearning] = useState("");
 
+    
+
 
     //so that data remains on page even if page refreshes
     useEffect(() => {
         async function fetchUser() {
-            const response = await fetch(`http://localhost:3000/users/${userId}`);
+            const response = await fetch("http://localhost:3000/users/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const data = await response.json();
 
+            setUser(data);
             setTeachingSkills(data.teachingSkills);
             setLearningSkills(data.learningSkills);
         }
 
         fetchUser();
-    }, [userId]);
+    }, [token]);
 
 
     //Add a new skill
     async function handleAddskills() {
         const updatedTeachingSkills = [...teachingskills, newSkill];
 
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
+        const response = await fetch("http://localhost:3000/users/me", {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
             },
             body: JSON.stringify({
                 teachingSkills: updatedTeachingSkills,
@@ -44,6 +54,11 @@ export function Profile() {
 
         console.log("Backend response:", data);
 
+        if (!response.ok) {
+            console.log("Failed to update profile:", data);
+            return;
+        }
+
         setTeachingSkills(updatedTeachingSkills);
         setNewSkill("");
     }
@@ -51,83 +66,99 @@ export function Profile() {
 
     //Remove a teaching skill
     async function handleRemoveSkills(skilltoremove) {
-        const updatedSkills = teachingskills.filter((skill) => {
-            return skill !== skilltoremove;
-        });
+    const updatedSkills = teachingskills.filter((skill) => {
+        return skill !== skilltoremove;
+    });
 
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                teachingSkills: updatedSkills,
-                learningSkills: learningskills
-            })
-        });
+    const response = await fetch("http://localhost:3000/users/me", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            teachingSkills: updatedSkills,
+            learningSkills: learningskills
+        })
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        console.log("Backend response:", data);
+    console.log("Backend response:", data);
 
-        setTeachingSkills(updatedSkills);
+    if (!response.ok) {
+        console.log("Failed to update profile:", data);
+        return;
     }
+
+    setTeachingSkills(updatedSkills);
+}
 
 
     //Add a learning skill
     async function handleNewSkilltolearn() {
-        const updatedLearningSkills = [...learningskills, newLearning];
+    const updatedLearningSkills = [...learningskills, newLearning];
 
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                teachingSkills: teachingskills,
-                learningSkills: updatedLearningSkills
-            })
-        });
+    const response = await fetch("http://localhost:3000/users/me", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            teachingSkills: teachingskills,
+            learningSkills: updatedLearningSkills
+        })
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        console.log("Backend response:", data);
+    console.log("Backend response:", data);
 
-        setLearningSkills(updatedLearningSkills);
-        setNewLearning("");
+    if (!response.ok) {
+        console.log("Failed to update profile:", data);
+        return;
     }
 
+    setLearningSkills(updatedLearningSkills);
+    setNewLearning("");
+}
 
     //Remove a learning skill
     async function handleRemoveLearningSkills(skilltoremove) {
-        const updatedSkills = learningskills.filter((skill) => {
-            return skill !== skilltoremove;
-        });
+    const updatedSkills = learningskills.filter((skill) => {
+        return skill !== skilltoremove;
+    });
 
-        const response = await fetch(`http://localhost:3000/users/${userId}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                teachingSkills: teachingskills,
-                learningSkills: updatedSkills
-            })
-        });
+    const response = await fetch("http://localhost:3000/users/me", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            teachingSkills: teachingskills,
+            learningSkills: updatedSkills
+        })
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        console.log("Backend response:", data);
+    console.log("Backend response:", data);
 
-        setLearningSkills(updatedSkills);
+    if (!response.ok) {
+        console.log("Failed to update profile:", data);
+        return;
     }
 
+    setLearningSkills(updatedSkills);
+}
 
     return (
         <div>
             <h1>My Profile</h1>
 
-            <h2>Rahul</h2>
+            <h2>{user?.name}</h2>
 
             <p>Skills I can teach:</p>
             <div>

@@ -4,6 +4,7 @@ const cors = require("cors");
 const skillRouter=require('./routes/skillRoutes');
 const userRouter=require('./routes/userRoutes');
 const teacherRouter=require('./routes/teacherRoutes');
+const swapRequestRouter=require('./routes/swapRequestRoutes');
 const {connectToDatabase} = require("./config/db");
 
 const app=express();
@@ -16,6 +17,7 @@ app.use("/skills",skillRouter);
 app.use("/skillName", skillRouter);
 app.use("/users",userRouter);
 app.use("/teachers", teacherRouter);
+app.use("/swap-requests", swapRequestRouter);
 
 app.use((err, req, res, next) => {
     console.error(err);

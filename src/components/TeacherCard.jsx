@@ -5,7 +5,7 @@ export function TeacherCard({ id, name, skill, description }) {
             <h3>{name}</h3>
             <p>{skill}</p>
             <p>{description}</p>
-            <Link to={`/teacher/${id}`}>
+            <Link to={`/teacher/${id}/${skill}`}>
     View Profile
 </Link>
         </div>
