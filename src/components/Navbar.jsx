@@ -39,12 +39,12 @@ export function Navbar({
 
                 <div className="Navbar-links">
 
-                    <Link
+                    <a
                         className="Navbar-link Navbar-link-active"
-                        to="/"
+                        href="#explore-skills"
                     >
                         Explore
-                    </Link>
+                    </a>
 
                     <a
                         className="Navbar-link"

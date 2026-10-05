@@ -13,6 +13,7 @@ import { Signup } from './components/signup';
 import { Requests } from './components/Requests';
 import { MySwaps } from "./components/MySwaps";
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { HowItWorks } from './components/howitworks';
 import './App.css';
 
 
@@ -41,15 +42,6 @@ function AppContent() {
 
       <Routes>
 
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <ExploreSkills search={search} />
-            </>
-          }
-        />
 
         <Route
           path="/skill/:skillName"
@@ -67,22 +59,22 @@ function AppContent() {
         />
 
         <Route
-  path="/swap/:skillName"
-  element={
-    <ProtectedRoute>
-      <SwapRequest />
-    </ProtectedRoute>
-  }
-/>
+          path="/swap/:skillName"
+          element={
+            <ProtectedRoute>
+              <SwapRequest />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/profile"
-  element={
-    <ProtectedRoute>
-      <Profile />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
 
         <Route
@@ -96,22 +88,32 @@ function AppContent() {
         />
 
         <Route
-  path="/requests"
-  element={
-    <ProtectedRoute>
-      <Requests />
-    </ProtectedRoute>
-  }
-/>
+          path="/requests"
+          element={
+            <ProtectedRoute>
+              <Requests />
+            </ProtectedRoute>
+          }
+        />
 
-<Route
-  path="/my-swaps"
-  element={
-    <ProtectedRoute>
-      <MySwaps />
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/my-swaps"
+          element={
+            <ProtectedRoute>
+              <MySwaps />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero loggedIn={loggedIn} />
+              <ExploreSkills search={search} />
+              <HowItWorks />
+            </>
+          }
+        />
 
       </Routes>
     </>

@@ -22,15 +22,44 @@ export function SkillDetails() {
         )
     }
     return (
-        <div>
-            <h1>{skill.courseName}</h1>
-            <p>Category: {skill.category}</p>
-            <p>{skill.description}</p>
-            <p>{skill.peopleCount} people can teach this skill.</p>
+    <div className="SkillDetails-page">
 
-            <Link to={`/teachers/${skillName}`}>
-                Find a Teacher
-            </Link>
+        <div className="SkillDetails-card">
+
+            <p className="SkillDetails-category">
+                {skill.category}
+            </p>
+
+            <h1>{skill.courseName}</h1>
+
+            <p className="SkillDetails-description">
+                {skill.description}
+            </p>
+
+            <div className="SkillDetails-info">
+                <span>
+                    👥 {skill.peopleCount} people can teach this skill
+                </span>
+            </div>
+
+            <div className="SkillDetails-actions">
+                <Link
+                    className="SkillDetails-teacher-button"
+                    to={`/teachers/${skillName}`}
+                >
+                    Find a Teacher
+                </Link>
+
+                <Link
+                    className="SkillDetails-back"
+                    to="/"
+                >
+                    ← Back to Explore
+                </Link>
+            </div>
+
         </div>
-    )
+
+    </div>
+);
 }
