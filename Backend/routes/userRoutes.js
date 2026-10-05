@@ -26,6 +26,14 @@ userRouter.post("/register", async (req, res, next) => {
 
         const db = getDb();
 
+        const existingUser = await db.collection("users").findOne({ email: email });
+
+        if (existingUser) {
+            return res.status(400).json({
+                message: "Email already exists"
+            });
+        }
+
         const result = await db.collection("users").insertOne({
             name,
             email,
@@ -34,10 +42,12 @@ userRouter.post("/register", async (req, res, next) => {
             learningSkills: []
         });
 
-        res.status(201).json({
+        return res.status(201).json({
             message: "User registered successfully",
             userId: result.insertedId
         });
+
+
 
     } catch (error) {
         next(error);

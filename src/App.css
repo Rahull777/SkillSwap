@@ -1,60 +1,82 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f8fafc;
+    color: #172033;
+    font-family: Arial, sans-serif;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
 .Navbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  width: 100%;
-  border-bottom: 1px solid #e7e9ee;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 4px 18px rgba(25, 35, 55, 0.04);
-  backdrop-filter: blur(14px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid #e5e7eb;
+    backdrop-filter: blur(8px);
 }
 
 .Navbar-inner {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  width: min(1180px, calc(100% - 48px));
-  min-height: 72px;
-  margin: 0 auto;
+    width: min(100% - 48px, 1180px);
+    min-height: 68px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 28px;
 }
 
 .Navbar-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-  color: #172033;
-  font-size: 1.22rem;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #172033;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 700;
 }
+
 
 .Navbar-brand > span:last-child span {
   color: #635bff;
 }
 
 .Navbar-brand-mark {
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border-radius: 10px;
-  color: #fff;
-  background: linear-gradient(135deg, #766dff, #5048d9);
-  box-shadow: 0 5px 12px rgba(99, 91, 255, 0.25);
-  font-size: 1rem;
-  font-weight: 800;
-  letter-spacing: -0.05em;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    background: #5048d9;
+    color: white;
+    font-size: 16px;
 }
 
 .Navbar-links {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.Navbar-link {
+    padding: 8px 10px;
+    color: #667085;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 8px;
 }
 
-.Navbar-link,
+.Navbar-link:hover {
+    color: #172033;
+    background: #f3f4f6;
+}
+
 .Navbar-login, .Navbar-logout {
   position: relative;
   padding: 9px 12px;
@@ -88,24 +110,21 @@
 }
 
 .Navbar-actions {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
 }
 
 .Navbar-search {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  width: 220px;
-  height: 40px;
-  padding: 0 13px;
-  border: 1px solid #e3e6ed;
-  border-radius: 10px;
-  color: #98a2b3;
-  background: #f8f9fb;
-  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 210px;
+    padding: 8px 11px;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+    background: #f8fafc;
 }
 
 .Navbar-search:focus-within {
@@ -115,25 +134,19 @@
 }
 
 .Navbar-search svg {
-  width: 17px;
-  height: 17px;
-  flex-shrink: 0;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-width: 1.8;
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: #98a2b3;
+    stroke-width: 2;
 }
 
 .Navbar-search input {
-  width: 100%;
-  min-width: 0;
-  border: 0;
-  outline: 0;
-  color: #172033;
-  background: transparent;
-  font: inherit;
-  font-size: 0.85rem;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 13px;
 }
 
 .Navbar-search input::placeholder {
@@ -141,33 +154,41 @@
 }
 
 .Navbar-login {
-  padding-right: 2px;
-  padding-left: 2px;
-  white-space: nowrap;
+    padding: 9px 15px;
+    border-radius: 8px;
+    background: #5048d9;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
 }
 
 .Navbar-login:hover {
-  background: transparent;
+    opacity: 0.9;
 }
-.Navbar-logout{
-  padding-right: 2px;
-  padding-left: 2px;
-  white-space: nowrap;
+.Navbar-logout {
+    border: none;
+    background: transparent;
+    color: #667085;
+    cursor: pointer;
+    font-size: 14px;
 }
+
 .Navbar-logout:hover {
-  background: transparent;
+    color: #172033;
 }
 
 .Navbar-profile {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #344054;
-  font-size: 0.87rem;
-  font-weight: 700;
-  text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
+.Navbar-profile-name {
+    color: #172033;
+    text-decoration: none;
+    font-size: 14px;
+}
 .Navbar-avatar {
   text-decoration: none;
   color: inherit;
@@ -189,102 +210,170 @@
   color: inherit;
 }
 
-@media (max-width: 760px) {
-  .Navbar-inner {
-    flex-wrap: wrap;
-    gap: 12px 20px;
-    padding: 12px 0;
-  }
+@media (max-width: 900px) {
+    .Navbar-inner {
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        padding: 12px 0;
+    }
 
-  .Navbar-actions {
-    order: 3;
-    width: 100%;
-    margin-left: 0;
-  }
+    .Navbar-actions {
+        order: 3;
+        width: 100%;
+        margin-left: 0;
+    }
 
-  .Navbar-search {
-    flex: 1;
+    .Navbar-search {
+        flex: 1;
+        width: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .Navbar-inner {
+        width: min(100% - 32px, 1180px);
+    }
+
+    .Navbar-links {
+        gap: 2px;
+    }
+
+    .Navbar-link {
+        padding: 7px;
+        font-size: 13px;
+    }
+
+    .Navbar-profile {
+        gap: 7px;
+    }
+
+    .Navbar-profile-name {
+        font-size: 13px;
+    }
+
+    .Navbar-logout {
+        font-size: 13px;
+    }
+}
+
+
+
+
+.Hero {
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 70px 20px 50px;
+    margin-top: 0;
+}
+
+.Hero h1 {
+    margin: 0;
+    font-size: 52px;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+}
+
+.Hero p {
+    max-width: 600px;
+    margin: 18px 0 0;
+    color: #667085;
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.Explore-Skills {
+    max-width: 1100px;
+    margin: 20px auto 80px;
+    padding: 0 24px;
+}
+
+.Explore-Skills > h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.Skill-Card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0;
+    padding: 24px;
     width: auto;
-  }
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
 }
 
-@media (max-width: 480px) {
-  .Navbar-inner {
-    width: min(100% - 32px, 1180px);
-  }
-
-  .Navbar-links {
-    gap: 0;
-  }
-
-  .Navbar-link {
-    padding: 8px;
-    font-size: 0.8rem;
-  }
-
-  .Navbar-profile-name {
-    display: none;
-    text-decoration: none;
-    color: inherit;
-  }
-}
-.Hero{
-  display:flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top:100px;
-}
-
-.Explore-Skills{
-  display:flex;
-  align-items: center;
-  flex-direction: column;
-  margin-top:100px;
-}
-
-.Skill-Card{
-  display:flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  margin-top: 25px;
-  margin-left: 50px;
-  border: 1px solid;
-  padding: 20px;
-  width: 200px;
-  border-radius: 10px;
-}
 
 .Skill-Card p {
   margin: 0;
 }
 
-.Skill-Card button {
-  width: fit-content;
-  height: 30px;
-  width: 100px;
-  margin-left: 25px;
-  cursor: pointer;
-  
+.Skill-Card h3 {
+    margin: 0;
 }
 
-.Skill-Card-Container{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  margin-top: 20px;
+
+.Skill-Card button {
+    cursor: pointer;
+}
+
+
+.Skill-Card-Container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .learn-button {
     display: inline-block;
-    padding: 8px 16px;
-    border-radius: 6px;
+    margin: 8px 0 0;
+    padding: 9px 16px;
+    border-radius: 8px;
     background: #5048d9;
     color: white;
     text-decoration: none;
-    margin-left: 37px;
+    font-size: 14px;
+    font-weight: 500;
 }
 
+.Skill-Card .learn-button {
+    align-self: flex-start;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.Skill-Card .learn-button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.Skill-Card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.Skill-Card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+@media (max-width: 800px) {
+    .Skill-Card-Container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .Skill-Card-Container {
+        grid-template-columns: 1fr;
+    }
+}
 .Login-page {
     display: flex;
     justify-content: center;
@@ -763,4 +852,397 @@
         text-align: center;
         box-sizing: border-box;
     }
+}
+
+
+
+
+/*teacher-profile page css*/
+
+
+.teacher-profile-page {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 0 24px;
+}
+
+.teacher-profile-card {
+    padding: 32px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: white;
+}
+
+.teacher-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.teacher-avatar {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #f3f4f6;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.teacher-profile-label {
+    margin: 0 0 5px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.teacher-profile-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.teacher-learning {
+    margin: 6px 0 0;
+    color: #6b7280;
+}
+
+.teacher-skills {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 28px;
+}
+
+.teacher-skill-section {
+    padding: 20px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+}
+
+.teacher-skill-section h3 {
+    margin: 0 0 15px;
+    font-size: 17px;
+}
+
+.teacher-skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.teacher-skill-list span {
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    font-size: 13px;
+}
+
+.teacher-profile-action {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.teacher-request-button {
+    padding: 11px 20px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.teacher-request-button:hover {
+    opacity: 0.9;
+}
+
+.teacher-message {
+    margin: 14px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+@media (max-width: 700px) {
+    .teacher-profile-page {
+        margin: 30px auto;
+        padding: 0 16px;
+    }
+
+    .teacher-profile-card {
+        padding: 22px;
+    }
+
+    .teacher-profile-header {
+        align-items: flex-start;
+    }
+
+    .teacher-profile-header h1 {
+        font-size: 24px;
+    }
+
+    .teacher-skills {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .teacher-request-button {
+        width: 100%;
+    }
+}
+
+
+
+/*login page css*/
+
+
+.Login-page {
+    min-height: calc(100vh - 68px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.Login-card {
+    width: min(100%, 400px);
+    padding: 34px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.Login-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.Login-icon {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 16px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: #5048d9;
+    color: white;
+    font-weight: 700;
+}
+
+.Login-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.Login-header p {
+    margin: 8px 0 0;
+    color: #667085;
+    font-size: 14px;
+}
+
+.Login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.Login-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.Login-field label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.Login-field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.Login-field input:focus {
+    border-color: #5048d9;
+    box-shadow: 0 0 0 3px rgba(80, 72, 217, 0.1);
+}
+
+.Login-error {
+    margin: -5px 0 0;
+    color: #dc2626;
+    font-size: 13px;
+}
+
+.Login-button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 9px;
+    background: #5048d9;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.Login-button:hover {
+    opacity: 0.9;
+}
+
+.Login-success {
+    margin: 12px 0 18px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #ecfdf3;
+    color: #067647;
+    font-size: 14px;
+}
+
+
+.Login-signup {
+    margin: 18px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: #667085;
+}
+
+.Login-signup a {
+    color: #5048d9;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.Login-signup a:hover {
+    text-decoration: underline;
+}
+
+
+
+/*signup page css*/
+
+
+.Signup-page {
+    min-height: calc(100vh - 68px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+}
+
+.Signup-card {
+    width: min(100%, 400px);
+    padding: 34px;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    background: white;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+}
+
+.Signup-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.Signup-icon {
+    width: 42px;
+    height: 42px;
+    margin: 0 auto 16px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: #5048d9;
+    color: white;
+    font-weight: 700;
+}
+
+.Signup-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.Signup-header p {
+    margin: 8px 0 0;
+    color: #667085;
+    font-size: 14px;
+}
+
+.Signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.Signup-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.Signup-field label {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.Signup-field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 9px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+}
+
+.Signup-field input:focus {
+    border-color: #5048d9;
+    box-shadow: 0 0 0 3px rgba(80, 72, 217, 0.1);
+}
+
+.Signup-error {
+    margin: -5px 0 0;
+    color: #dc2626;
+    font-size: 13px;
+}
+
+.Signup-button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 9px;
+    background: #5048d9;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.Signup-button:hover {
+    opacity: 0.9;
+}
+
+.Signup-login {
+    margin: 18px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: #667085;
+}
+
+.Signup-login a {
+    color: #5048d9;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.Signup-login a:hover {
+    text-decoration: underline;
 }

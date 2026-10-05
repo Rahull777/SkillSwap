@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 export function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -9,69 +9,141 @@ export function Signup() {
 
     const navigate = useNavigate();
 
-    function handleSignup() {
-    if (
-        name.trim() === "" ||
-        email.trim() === "" ||
-        password.trim() === "" ||
-        confirmPassword.trim() === ""
-    ) {
-        setError("Please fill in all fields.");
-        return;
-    }
 
-    if (password !== confirmPassword) {
-        setError("Passwords do not match.");
-        return;
-    }
+    async function handleSignup() {
+        if (
+            name.trim() === "" ||
+            email.trim() === "" ||
+            password.trim() === "" ||
+            confirmPassword.trim() === ""
+        ) {
+            setError("Please fill in all fields.");
+            return;
+        }
 
-    setError("");
-    navigate("/login");
-}
+        if (password !== confirmPassword) {
+            setError("Passwords do not match.");
+            return;
+        }
+
+        setError("");
+
+        const response = await fetch("http://localhost:3000/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                password
+            })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            setError(data.message);
+            return;
+        }
+
+        navigate("/login", {
+            state: {
+                message: "Account created successfully. Please log in."
+            }
+        });
+    }
 
     return (
         <div className="Signup-page">
+
             <div className="Signup-card">
-                <label htmlFor="name">Name</label>
-                <input
-                    id="name"
-                    type="text"
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    placeholder="Enter your name"
-                />
 
-                <label htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder="Enter your email"
-                />
+                <div className="Signup-header">
+                    <div className="Signup-icon">S</div>
 
-                <label htmlFor="password">Password</label>
-                <input
-                    id="password"
-                    type="password"
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    placeholder="Enter your password"
-                />
-                <label htmlFor="confirmPassword">Confirm Password</label>
-                <input
-                    id="confirmPassword"
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}
-                    placeholder="Confirm your password"
-                />
-                {error && <p>{error}</p>}
-                <button onClick={handleSignup}>
-                    Create Account
-                </button>
+                    <h1>Create your account</h1>
+
+                    <p>
+                        Join SkillSwap and start exchanging skills.
+                    </p>
+                </div>
+
+                <div className="Signup-form">
+
+                    <div className="Signup-field">
+                        <label htmlFor="name">Name</label>
+
+                        <input
+                            id="name"
+                            type="text"
+                            value={name}
+                            onChange={(event) => setName(event.target.value)}
+                            placeholder="Enter your name"
+                        />
+                    </div>
+
+                    <div className="Signup-field">
+                        <label htmlFor="email">Email</label>
+
+                        <input
+                            id="email"
+                            type="email"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            placeholder="Enter your email"
+                        />
+                    </div>
+
+                    <div className="Signup-field">
+                        <label htmlFor="password">Password</label>
+
+                        <input
+                            id="password"
+                            type="password"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            placeholder="Enter your password"
+                        />
+                    </div>
+
+                    <div className="Signup-field">
+                        <label htmlFor="confirmPassword">
+                            Confirm Password
+                        </label>
+
+                        <input
+                            id="confirmPassword"
+                            type="password"
+                            value={confirmPassword}
+                            onChange={(event) =>
+                                setConfirmPassword(event.target.value)
+                            }
+                            placeholder="Confirm your password"
+                        />
+                    </div>
+
+                    {error && (
+                        <p className="Signup-error">
+                            {error}
+                        </p>
+                    )}
+
+                    <button
+                        className="Signup-button"
+                        onClick={handleSignup}
+                    >
+                        Create Account
+                    </button>
+                    <p className="Signup-login">
+                        Already have an account?{" "}
+                        <Link to="/login">Log in</Link>
+                    </p>
+
+                </div>
+
             </div>
-        </div>
 
+        </div>
     )
 }
