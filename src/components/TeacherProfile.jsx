@@ -60,25 +60,78 @@ export function TeacherProfile() {
     }
 
     return (
-        <div>
-            <h1>{teacher.name}</h1>
+    <div className="teacher-profile-page">
 
-            <h3>Skills they can teach</h3>
+        <div className="teacher-profile-card">
 
-            {teacher.teachingSkills.map((skill) => (
-                <p key={skill}>{skill}</p>
-            ))}
+            <div className="teacher-profile-header">
+                <div className="teacher-avatar">
+                    {teacher.name.charAt(0).toUpperCase()}
+                </div>
 
-            <h3>Skills they want to learn</h3>
+                <div>
+                    <p className="teacher-profile-label">
+                        SkillSwap member
+                    </p>
 
-            {teacher.learningSkills.map((skill) => (
-                <p key={skill}>{skill}</p>
-            ))}
+                    <h1>{teacher.name}</h1>
 
-            <button onClick={handleSwapRequest}>
-                Request Skill Swap
-            </button>
-            {message && <p>{message}</p>}
+                    <p className="teacher-learning">
+                        Wants to learn <strong>{skill}</strong>
+                    </p>
+                </div>
+            </div>
+
+
+            <div className="teacher-skills">
+
+                <div className="teacher-skill-section">
+                    <h3>Skills they can teach</h3>
+
+                    <div className="teacher-skill-list">
+                        {teacher.teachingSkills.map((skill) => (
+                            <span key={skill}>
+                                {skill}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+
+                <div className="teacher-skill-section">
+                    <h3>Skills they want to learn</h3>
+
+                    <div className="teacher-skill-list">
+                        {teacher.learningSkills.map((skill) => (
+                            <span key={skill}>
+                                {skill}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div className="teacher-profile-action">
+
+                <button
+                    className="teacher-request-button"
+                    onClick={handleSwapRequest}
+                >
+                    Request Skill Swap
+                </button>
+
+                {message && (
+                    <p className="teacher-message">
+                        {message}
+                    </p>
+                )}
+
+            </div>
+
         </div>
-    );
+
+    </div>
+);
 }

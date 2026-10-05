@@ -85,6 +85,20 @@ export function Navbar({
                         <div className="Navbar-profile">
 
                             <Link
+                                to="/requests"
+                                className="Navbar-profile-name"
+                            >
+                                Requests
+                            </Link>
+
+                            <Link
+                                to="/my-swaps"
+                                className="Navbar-profile-name"
+                            >
+                                My Swaps
+                            </Link>
+
+                            <Link
                                 to="/profile"
                                 className="Navbar-avatar"
                             >
