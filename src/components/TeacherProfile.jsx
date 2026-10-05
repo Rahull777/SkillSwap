@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 
 export function TeacherProfile() {
-    const { id,skill } = useParams();
+    const { id, skill } = useParams();
 
     const [teacher, setTeacher] = useState(null);
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
         async function fetchTeacher() {
@@ -47,6 +48,8 @@ export function TeacherProfile() {
     const data = await response.json();
 
     console.log("Swap request response:", data);
+
+    setMessage(data.message);
 }
 
 
@@ -73,8 +76,9 @@ export function TeacherProfile() {
             ))}
 
             <button onClick={handleSwapRequest}>
-    Request Skill Swap
-</button>
+                Request Skill Swap
+            </button>
+            {message && <p>{message}</p>}
         </div>
     );
 }

@@ -18,6 +18,24 @@ swapRequestRouter.post("/", authMiddleware, async (req, res, next) => {
             });
         }
 
+        if (requesterId === receiverId) {
+    return res.status(400).json({
+        message: "You cannot send a swap request to yourself"
+    });
+}
+
+        const existingRequest = await db.collection("swapRequests").findOne({
+            requesterId: new ObjectId(requesterId),
+            receiverId: new ObjectId(receiverId),
+            skill: skill,
+            status: "pending"
+        });
+
+        if (existingRequest) {
+            return res.status(400).json({
+                message: "You already have a pending request for this skill"
+            });
+        }
         const newRequest = {
             requesterId: new ObjectId(requesterId),
             receiverId: new ObjectId(receiverId),

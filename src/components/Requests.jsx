@@ -102,34 +102,55 @@ export function Requests() {
 
 
     return (
-        <div>
+    <div className="requests-page">
+
+        <div className="requests-header">
             <h1>My Requests</h1>
+            <p>Manage requests from people who want to learn from you.</p>
+        </div>
 
-            {requests.length === 0 ? (
-                <p>No requests yet.</p>
-            ) : (
-                requests.map((request) => (
-                    <div key={request._id}>
-                        <h3>
-                            {request.requester?.name} wants to learn {request.skill}
-                        </h3>
+        {requests.length === 0 ? (
+            <div className="requests-empty">
+                <h3>No requests yet</h3>
+                <p>When someone sends you a skill swap request, it will appear here.</p>
+            </div>
+        ) : (
+            <div className="requests-list">
+                {requests.map((request) => (
+                    <div className="request-card" key={request._id}>
 
-                        <p>Status: {request.status}</p>
+                        <div className="request-info">
+                            <h3>
+                                {request.requester?.name} wants to learn {request.skill}
+                            </h3>
+
+                            <p className={`request-status ${request.status}`}>
+                                Status: {request.status}
+                            </p>
+                        </div>
 
                         {request.status === "pending" && (
-                            <>
-                                <button onClick={() => handleAccept(request._id)}>
+                            <div className="request-actions">
+                                <button
+                                    className="accept-button"
+                                    onClick={() => handleAccept(request._id)}
+                                >
                                     Accept
                                 </button>
 
-                                <button onClick={() => handleReject(request._id)}>
+                                <button
+                                    className="reject-button"
+                                    onClick={() => handleReject(request._id)}
+                                >
                                     Reject
                                 </button>
-                            </>
+                            </div>
                         )}
+
                     </div>
-                ))
-            )}
-        </div>
-    );
+                ))}
+            </div>
+        )}
+    </div>
+);
 }

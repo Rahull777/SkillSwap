@@ -316,3 +316,278 @@
     border: 1px solid #ddd;
     border-radius: 10px;
 }
+
+
+
+
+/*profile page css*/
+
+
+.profile-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 24px;
+}
+
+.profile-header {
+    margin-bottom: 35px;
+}
+
+.profile-header h1 {
+    margin-bottom: 8px;
+}
+
+.profile-header h2 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.profile-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.skill-section {
+    padding: 28px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: white;
+}
+
+.skill-section h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+.skill-item span {
+    font-weight: 500;
+}
+
+.skill-item button {
+    padding: 6px 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 7px;
+    background: white;
+    color: #6b7280;
+    cursor: pointer;
+}
+
+.skill-item button:hover {
+    color: #111827;
+    border-color: #9ca3af;
+}
+
+.skill-input {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.skill-input input {
+    flex: 1;
+    padding: 11px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+    font-size: 14px;
+    outline: none;
+}
+
+.skill-input input:focus {
+    border-color: #111827;
+}
+
+.skill-input button {
+    padding: 11px 18px;
+    border: none;
+    border-radius: 9px;
+    background: #111827;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.skill-input button:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 700px) {
+    .profile-page {
+        margin: 30px auto;
+        padding: 0 16px;
+    }
+
+    .profile-sections {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .skill-input {
+        flex-direction: column;
+    }
+
+    .skill-input button {
+        width: 100%;
+    }
+}
+
+
+
+/*Request page css*/
+
+.requests-page {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 0 24px;
+}
+
+.requests-header {
+    margin-bottom: 30px;
+}
+
+.requests-header h1 {
+    margin-bottom: 8px;
+}
+
+.requests-header p {
+    margin: 0;
+    color: #6b7280;
+}
+
+.requests-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.request-card {
+    padding: 22px 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.request-info h3 {
+    margin: 0 0 10px;
+    font-size: 18px;
+}
+
+.request-info p {
+    margin: 0;
+}
+
+
+.request-status {
+    display: inline-block;
+    margin-top: 4px !important;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.request-status.pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.request-status.accepted {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.request-status.rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.request-actions button {
+    padding: 9px 16px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.accept-button {
+    border: none;
+    background: #111827;
+    color: white;
+}
+
+.accept-button:hover {
+    opacity: 0.9;
+}
+
+.reject-button {
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #6b7280;
+}
+
+.reject-button:hover {
+    border-color: #9ca3af;
+    color: #111827;
+}
+
+.requests-empty {
+    padding: 50px 20px;
+    text-align: center;
+    border: 1px dashed #d1d5db;
+    border-radius: 16px;
+}
+
+.requests-empty h3 {
+    margin: 0 0 8px;
+}
+
+.requests-empty p {
+    margin: 0;
+    color: #6b7280;
+}
+
+@media (max-width: 700px) {
+    .requests-page {
+        margin: 30px auto;
+        padding: 0 16px;
+    }
+
+    .request-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .request-actions {
+        width: 100%;
+    }
+
+    .request-actions button {
+        flex: 1;
+    }
+}

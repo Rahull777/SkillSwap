@@ -170,46 +170,84 @@ export function Profile() {
     }
 
     return (
-        <div>
+    <div className="profile-page">
+
+        <div className="profile-header">
             <h1>My Profile</h1>
-
             <h2>{user?.name}</h2>
-
-            <p>Skills I can teach:</p>
-            <div>
-                {teachingskills.map((skill) => {
-                    return (
-                        <div key={skill}>
-                            <p>{skill}</p>
-                            <button onClick={() => handleRemoveSkills(skill)}>Remove</button>
-                        </div>
-                    )
-                })}
-            </div>
-            <input
-                placeholder="Enter a skill you can teach"
-                value={newSkill}
-                onChange={(event) => setNewSkill(event.target.value)}
-            />
-            <button onClick={handleAddskills}>Add Skill</button>
-
-            <p>Skills I want to learn:</p>
-            <div>
-                {learningskills.map((skill) => {
-                    return (
-                        <div key={skill}>
-                            <p>{skill}</p>
-                            <button onClick={() => handleRemoveLearningSkills(skill)}>Remove</button>
-                        </div>
-
-                    )
-                })}
-            </div>
-            <input placeholder="Enter skill you want to learn"
-                value={newLearning}
-                onChange={(event) => setNewLearning(event.target.value)}
-            />
-            <button onClick={handleNewSkilltolearn}>Add Skill</button>
         </div>
-    );
-}
+
+        <div className="profile-sections">
+
+            {/* Teaching Skills */}
+            <div className="skill-section">
+                <h3>Skills I can teach</h3>
+
+                <div className="skills-list">
+                    {teachingskills.map((skill) => {
+                        return (
+                            <div className="skill-item" key={skill}>
+                                <span>{skill}</span>
+                                <button
+                                    onClick={() => handleRemoveSkills(skill)}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="skill-input">
+                    <input
+                        placeholder="Enter a skill you can teach"
+                        value={newSkill}
+                        onChange={(event) =>
+                            setNewSkill(event.target.value)
+                        }
+                    />
+                    <button onClick={handleAddskills}>
+                        Add Skill
+                    </button>
+                </div>
+            </div>
+
+
+            {/* Learning Skills */}
+            <div className="skill-section">
+                <h3>Skills I want to learn</h3>
+
+                <div className="skills-list">
+                    {learningskills.map((skill) => {
+                        return (
+                            <div className="skill-item" key={skill}>
+                                <span>{skill}</span>
+                                <button
+                                    onClick={() =>
+                                        handleRemoveLearningSkills(skill)
+                                    }
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="skill-input">
+                    <input
+                        placeholder="Enter skill you want to learn"
+                        value={newLearning}
+                        onChange={(event) =>
+                            setNewLearning(event.target.value)
+                        }
+                    />
+                    <button onClick={handleNewSkilltolearn}>
+                        Add Skill
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+)}

@@ -28,37 +28,74 @@ export function MySwaps() {
     }, []);
 
     return (
-        <div>
+    <div className="swaps-page">
+
+        <div className="swaps-header">
             <h1>My Swaps</h1>
-
-            {swaps.length === 0 ? (
-                <p>No active swaps yet.</p>
-            ) : (
-                swaps.map((swap) => (
-                    <div key={swap._id}>
-                        <h2>Swap with {swap.otherUser.name}</h2>
-                        <Link
-    to={`/teacher/${swap.otherUser._id}/${swap.skill}`}
->
-    View Profile
-</Link>
-
-                        <p>Status: {swap.status}</p>
-
-                        <h3>They can teach:</h3>
-
-                        {swap.otherUser.teachingSkills.map((skill) => (
-                            <p key={skill}>{skill}</p>
-                        ))}
-
-                        <h3>They want to learn:</h3>
-
-                        {swap.otherUser.learningSkills.map((skill) => (
-                            <p key={skill}>{skill}</p>
-                        ))}
-                    </div>
-                ))
-            )}
+            <p>People you're connected with through SkillSwap.</p>
         </div>
-    );
-}
+
+        {swaps.length === 0 ? (
+            <div className="swaps-empty">
+                <h3>No active swaps yet</h3>
+                <p>Once a swap request is accepted, your connection will appear here.</p>
+            </div>
+        ) : (
+            <div className="swaps-list">
+                {swaps.map((swap) => (
+                    <div className="swap-card" key={swap._id}>
+
+                        <div className="swap-card-header">
+                            <div>
+                                <p className="swap-label">Skill Swap</p>
+                                <h2>Swap with {swap.otherUser.name}</h2>
+                            </div>
+
+                            <span className="swap-status">
+                                {swap.status}
+                            </span>
+                        </div>
+
+                        <div className="swap-skill">
+                            <p>You connected over</p>
+                            <strong>{swap.skill}</strong>
+                        </div>
+
+                        <div className="swap-skills">
+
+                            <div className="swap-skill-group">
+                                <h3>They can teach</h3>
+
+                                <div className="swap-skill-list">
+                                    {swap.otherUser.teachingSkills.map((skill) => (
+                                        <span key={skill}>{skill}</span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="swap-skill-group">
+                                <h3>They want to learn</h3>
+
+                                <div className="swap-skill-list">
+                                    {swap.otherUser.learningSkills.map((skill) => (
+                                        <span key={skill}>{skill}</span>
+                                    ))}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <Link
+                            className="swap-profile-link"
+                            to={`/teacher/${swap.otherUser._id}/${swap.skill}`}
+                        >
+                            View Profile
+                        </Link>
+
+                    </div>
+                ))}
+            </div>
+        )}
+
+    </div>
+)}
