@@ -19,8 +19,13 @@ input {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid #e5e7eb;
+    background: linear-gradient(
+        90deg,
+        rgba(79, 70, 229, 0.08),
+        rgba(20, 184, 166, 0.08)
+    );
+
+    border-bottom: 1px solid rgba(79, 70, 229, 0.12);
     backdrop-filter: blur(8px);
 }
 
@@ -461,7 +466,7 @@ input {
 .Explore-Skills {
     padding: 100px 0;
     overflow: hidden;
-    background: #f8f8fb;
+    background: #f4f6fb;
 }
 
 .Explore-Skills > h2 {
@@ -544,6 +549,37 @@ input {
 .Skills-marquee {
     width: 100%;
     overflow: hidden;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.Skills-marquee::before,
+.Skills-marquee::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.Skills-marquee::before {
+    left: 0;
+    background: linear-gradient(
+        to right,
+        #f8f8fb,
+        transparent
+    );
+}
+
+.Skills-marquee::after {
+    right: 0;
+    background: linear-gradient(
+        to left,
+        #f8f8fb,
+        transparent
+    );
 }
 
 .Skills-track {
@@ -616,13 +652,65 @@ input {
     margin-bottom: 35px;
 }
 
-.profile-header h1 {
-    margin-bottom: 8px;
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    margin-bottom: 45px;
+    padding: 30px;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #4f46e5,
+        #14b8a6
+    );
+
+    color: white;
 }
 
-.profile-header h2 {
+.profile-avatar {
+    width: 76px;
+    height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.profile-eyebrow {
+    margin: 0 0 6px;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.profile-header h1 {
     margin: 0;
-    font-size: 28px;
+
+    font-size: 36px;
+    line-height: 1.1;
+}
+
+.profile-subtitle {
+    margin: 8px 0 0;
+
+    color: rgba(255, 255, 255, 0.75);
 }
 
 .profile-sections {
@@ -637,11 +725,32 @@ input {
     border-radius: 16px;
     background: white;
 }
+.skill-section-header {
+    margin-bottom: 24px;
+}
 
-.skill-section h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 20px;
+.skill-section-label {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+
+    color: #5048d9;
+}
+
+.skill-section-header h3 {
+    margin: 0;
+    font-size: 22px;
+}
+.skill-section-header p {
+    margin: 8px 0 0;
+
+    color: #667085;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .skills-list {
@@ -654,8 +763,12 @@ input {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     padding: 12px 14px;
+
+    border: 1px solid #e5e7eb;
     border-radius: 10px;
+
     background: #f8fafc;
 }
 
@@ -678,36 +791,39 @@ input {
 }
 
 .skill-input {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 
 .skill-input input {
-    flex: 1;
-    padding: 11px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 9px;
-    font-size: 14px;
-    outline: none;
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
 }
 
 .skill-input input:focus {
-    border-color: #111827;
+  border-color: #4f46e5;
 }
 
 .skill-input button {
-    padding: 11px 18px;
-    border: none;
-    border-radius: 9px;
-    background: #111827;
-    color: white;
-    cursor: pointer;
-    font-weight: 500;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s, opacity 0.2s;
 }
 
 .skill-input button:hover {
-    opacity: 0.9;
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 700px) {
@@ -772,11 +888,18 @@ input {
 
 .request-info h3 {
     margin: 0 0 10px;
-    font-size: 18px;
+    font-size: 19px;
 }
 
 .request-info p {
     margin: 0;
+}
+.request-label {
+    margin: 0 0 7px;
+    color: #5048d9;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
 }
 
 
@@ -820,12 +943,14 @@ input {
 
 .accept-button {
     border: none;
-    background: #111827;
+    background: linear-gradient(135deg, #4f46e5, #14b8a6);
     color: white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .accept-button:hover {
-    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(79, 70, 229, 0.2);
 }
 
 .reject-button {
@@ -1065,8 +1190,8 @@ input {
     border: 1px solid #e5e7eb;
     border-radius: 18px;
     background: white;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
 }
-
 .teacher-profile-header {
     display: flex;
     align-items: center;
@@ -1076,14 +1201,18 @@ input {
 }
 
 .teacher-avatar {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+
     border-radius: 50%;
-    background: #f3f4f6;
-    font-size: 24px;
+    background: linear-gradient(135deg, #4f46e5, #14b8a6);
+    color: white;
+
+    font-size: 25px;
     font-weight: 600;
 }
 
@@ -1141,23 +1270,28 @@ input {
 }
 
 .teacher-request-button {
-    padding: 11px 20px;
+    padding: 12px 22px;
     border: none;
-    border-radius: 9px;
-    background: #111827;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4f46e5, #14b8a6);
     color: white;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .teacher-request-button:hover {
-    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.2);
 }
 
 .teacher-message {
     margin: 14px 0 0;
-    color: #6b7280;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #ecfdf3;
+    color: #027a48;
     font-size: 14px;
 }
 
@@ -1597,6 +1731,7 @@ input {
     border: 1px solid #e5e7eb;
     border-radius: 16px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 190px;
 }
 
 .TeacherCard:hover {
@@ -1605,8 +1740,8 @@ input {
 }
 
 .TeacherCard-avatar {
-    width: 52px;
-    height: 52px;
+    width: 56px;
+    height: 56px;
     flex-shrink: 0;
 
     display: flex;
@@ -1614,8 +1749,8 @@ input {
     justify-content: center;
 
     border-radius: 50%;
-    background: #f1f0ff;
-    color: #5048d9;
+    background: linear-gradient(135deg, #4f46e5, #14b8a6);
+    color: white;
 
     font-size: 20px;
     font-weight: 600;
@@ -1632,10 +1767,10 @@ input {
 }
 
 .TeacherCard-role {
-    margin: 5px 0 10px;
-    color: #5048d9;
+    margin: 5px 0 14px;
+    color: #667085;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .TeacherCard-description {

@@ -20,8 +20,12 @@ export function MySwaps() {
             console.log("My swaps:", data);
 
             if (response.ok) {
-                setSwaps(data);
-            }
+    const sortedSwaps = [...data].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+    setSwaps(sortedSwaps);
+}
         }
 
         fetchSwaps();

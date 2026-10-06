@@ -46,6 +46,7 @@ export function SkillDetails() {
                 <Link
                     className="SkillDetails-teacher-button"
                     to={`/teachers/${skillName}`}
+                    state={{ skillName: skill.courseName }}
                 >
                     Find a Teacher
                 </Link>
