@@ -16,11 +16,15 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import { HowItWorks } from './components/howitworks';
 import './App.css';
 
-
 function AppContent() {
   const [search, setSearch] = useState("");
+
   const [loggedIn, setLoggedIn] = useState(
     !!localStorage.getItem("token")
+  );
+
+  const [darkMode, setDarkMode] = useState(
+    localStorage.getItem("darkMode") === "true"
   );
 
   const location = useLocation();
@@ -29,19 +33,31 @@ function AppContent() {
     location.pathname === "/login" ||
     location.pathname === "/signup";
 
+  function toggleDarkMode() {
+    setDarkMode((currentMode) => {
+      const newMode = !currentMode;
+
+      localStorage.setItem("darkMode", newMode);
+
+      return newMode;
+    });
+  }
+
   return (
-    <>
+    <div className={darkMode ? "dark-mode" : ""}>
+
       {!hideNavbar && (
         <Navbar
           search={search}
           setSearch={setSearch}
           loggedIn={loggedIn}
           setLoggedIn={setLoggedIn}
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
         />
       )}
 
       <Routes>
-
 
         <Route
           path="/skill/:skillName"
@@ -76,7 +92,6 @@ function AppContent() {
           }
         />
 
-
         <Route
           path="/login"
           element={<Login setLoggedIn={setLoggedIn} />}
@@ -104,6 +119,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/"
           element={
@@ -116,7 +132,8 @@ function AppContent() {
         />
 
       </Routes>
-    </>
+
+    </div>
   );
 }
 

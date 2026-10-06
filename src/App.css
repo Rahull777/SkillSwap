@@ -215,6 +215,63 @@ input {
   color: inherit;
 }
 
+.Navbar-actions {
+    position: relative;
+}
+
+.Navbar-search-message {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 230px;
+    padding: 12px 14px;
+    margin: 0;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    background: white;
+
+    color: #667085;
+    font-size: 13px;
+    line-height: 1.45;
+
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    z-index: 10;
+}
+
+.Navbar-search-message strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #111827;
+    font-size: 13px;
+}
+
+.Navbar-search-message p {
+    margin: 0;
+}
+
+.Navbar-theme-toggle {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #d1d5db;
+    border-radius: 50%;
+    background: white;
+    color: #344054;
+    font-size: 20px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background 0.2s, transform 0.2s;
+}
+
+.Navbar-theme-toggle:hover {
+    background: #f8fafc;
+    transform: translateY(-1px);
+}
+
 @media (max-width: 900px) {
     .Navbar-inner {
         flex-wrap: wrap;
@@ -1911,4 +1968,326 @@ input {
     .HowItWorks h2 {
         font-size: 36px;
     }
+}
+
+
+
+/* dark mode */
+
+.dark-mode {
+    min-height: 100vh;
+    background: #0f172a;
+    color: #f8fafc;
+}
+
+.dark-mode a {
+    color: inherit;
+}
+
+.dark-mode button {
+    color: inherit;
+}
+
+
+/* Navbar */
+
+.dark-mode .Navbar {
+    background: rgba(15, 23, 42, 0.92);
+    border-bottom-color: #334155;
+}
+
+.dark-mode .Navbar-brand {
+    color: #f8fafc;
+}
+
+.dark-mode .Navbar-link {
+    color: #cbd5e1;
+}
+
+.dark-mode .Navbar-link:hover {
+    color: #ffffff;
+    background: #1e293b;
+}
+
+.dark-mode .Navbar-profile-name {
+    color: #e2e8f0;
+}
+
+.dark-mode .Navbar-logout {
+    color: #cbd5e1;
+}
+
+.dark-mode .Navbar-logout:hover {
+    color: #ffffff;
+    background: #1e293b;
+}
+
+
+/* Search */
+
+.dark-mode .Navbar-search {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .Navbar-search:focus-within {
+    background: #1e293b;
+}
+
+.dark-mode .Navbar-search input {
+    color: #f8fafc;
+}
+
+.dark-mode .Navbar-search input::placeholder {
+    color: #94a3b8;
+}
+
+.dark-mode .Navbar-search-message {
+    background: #1e293b;
+    border-color: #334155;
+    color: #cbd5e1;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.dark-mode .Navbar-search-message strong {
+    color: #f8fafc;
+}
+
+
+/* Theme button */
+
+.dark-mode .Navbar-theme-toggle {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+.dark-mode .Navbar-theme-toggle:hover {
+    background: #334155;
+}
+
+
+/* Explore Skills */
+
+.dark-mode .Explore-Skills {
+    background: #0f172a;
+}
+
+.dark-mode .Skill-Card {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+
+/* General page backgrounds */
+
+.dark-mode .SkillDetails-page,
+.dark-mode .TeacherList-page,
+.dark-mode .teacher-profile-page,
+.dark-mode .profile-page,
+.dark-mode .requests-page,
+.dark-mode .swaps-page {
+    background: #0f172a;
+}
+
+
+/* Skill Details */
+
+.dark-mode .SkillDetails-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .SkillDetails-description,
+.dark-mode .SkillDetails-back {
+    color: #94a3b8;
+}
+
+.dark-mode .SkillDetails-info {
+    background: #0f172a;
+    color: #cbd5e1;
+}
+
+
+/* Teacher List */
+
+.dark-mode .TeacherList-subtitle,
+.dark-mode .TeacherList-results-header span {
+    color: #94a3b8;
+}
+
+.dark-mode .TeacherCard {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .TeacherCard-role {
+    color: #94a3b8;
+}
+
+
+/* Profile */
+
+.dark-mode .skill-section {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .skill-section-header p {
+    color: #94a3b8;
+}
+
+.dark-mode .skill-item {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.dark-mode .skill-item button {
+    background: #1e293b;
+    border-color: #475569;
+    color: #cbd5e1;
+}
+
+.dark-mode .skill-input input {
+    background: #0f172a;
+    border-color: #475569;
+    color: #f8fafc;
+}
+
+.dark-mode .skill-input input::placeholder {
+    color: #94a3b8;
+}
+
+
+/* Requests */
+
+.dark-mode .request-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .request-label {
+    color: #818cf8;
+}
+
+.dark-mode .reject-button {
+    background: #1e293b;
+    border-color: #475569;
+    color: #cbd5e1;
+}
+
+.dark-mode .requests-header p,
+.dark-mode .requests-empty p {
+    color: #94a3b8;
+}
+
+.dark-mode .requests-empty {
+    border-color: #475569;
+}
+
+
+/* My Swaps */
+
+.dark-mode .swap-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .swap-label,
+.dark-mode .swap-skill p {
+    color: #94a3b8;
+}
+
+.dark-mode .swap-skill {
+    background: #0f172a;
+}
+
+.dark-mode .swap-skill-group {
+    border-color: #334155;
+}
+
+.dark-mode .swap-skill-list span {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+.dark-mode .swaps-header p,
+.dark-mode .swaps-empty p {
+    color: #94a3b8;
+}
+
+.dark-mode .swaps-empty {
+    border-color: #475569;
+}
+
+
+/* Teacher Profile */
+
+.dark-mode .teacher-profile-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .teacher-profile-header,
+.dark-mode .teacher-profile-action {
+    border-color: #334155;
+}
+
+.dark-mode .teacher-profile-label,
+.dark-mode .teacher-learning {
+    color: #94a3b8;
+}
+
+.dark-mode .teacher-skill-section {
+    border-color: #334155;
+}
+
+.dark-mode .teacher-skill-list span {
+    background: #334155;
+    color: #e2e8f0;
+}
+
+
+/* Login / Signup */
+
+.dark-mode .Login-card,
+.dark-mode .Signup-card {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+.dark-mode .Login-header p,
+.dark-mode .Signup-header p,
+.dark-mode .Login-signup,
+.dark-mode .Signup-login {
+    color: #94a3b8;
+}
+
+.dark-mode .Login-field input,
+.dark-mode .Signup-field input {
+    background: #0f172a;
+    border-color: #475569;
+    color: #f8fafc;
+}
+
+.dark-mode .Login-field input::placeholder,
+.dark-mode .Signup-field input::placeholder {
+    color: #94a3b8;
+}
+
+.dark-mode .Skills-marquee::after {
+  background: linear-gradient(
+    to right,
+    transparent,
+    #0f172a
+  );
+}
+
+.dark-mode .Skills-marquee::before {
+  background: linear-gradient(
+    to left,
+    transparent,
+    #0f172a
+  );
 }

@@ -1,12 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export function Navbar({
     search,
     setSearch,
     loggedIn,
-    setLoggedIn
+    setLoggedIn,
+    darkMode,
+    toggleDarkMode
 }) {
     const navigate = useNavigate();
+    const [searchMessage, setSearchMessage] = useState("");
 
     function handleLogout() {
         localStorage.removeItem("token");
@@ -14,6 +18,36 @@ export function Navbar({
         navigate("/login");
     }
 
+    async function handleSearch(event) {
+        event.preventDefault();
+
+        const searchText = search.trim().toLowerCase();
+
+        if (!searchText) {
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:3000/skills");
+            const skills = await response.json();
+
+            const matchingSkill = skills.find((skill) =>
+                skill.courseName.toLowerCase() === searchText
+            );
+
+            if (matchingSkill) {
+                setSearchMessage("");
+                navigate(`/skill/${matchingSkill.courseName.toLowerCase()}`);
+                setSearch("");
+            } else {
+                setSearchMessage(
+                    "Looks like that skill isn't here yet. Explore the available skills and find something worth learning."
+                );
+            }
+        } catch (error) {
+            console.log("Failed to search skills:", error);
+        }
+    }
     return (
         <nav className="Navbar" aria-label="Main navigation">
 
@@ -58,7 +92,8 @@ export function Navbar({
 
                 <div className="Navbar-actions">
 
-                    <label className="Navbar-search">
+
+                    <form className="Navbar-search" onSubmit={handleSearch}>
 
                         <svg
                             viewBox="0 0 24 24"
@@ -74,10 +109,19 @@ export function Navbar({
                             value={search}
                             onChange={(event) => {
                                 setSearch(event.target.value);
+                                setSearchMessage("");
                             }}
                         />
 
-                    </label>
+                    </form>
+                    {searchMessage && (
+                        <p className="Navbar-search-message">
+                            <strong>Skill not found</strong>
+                            <p>
+                                This skill isn't available yet. Try searching for another one.
+                            </p>
+                        </p>
+                    )}
 
 
                     {loggedIn ? (
@@ -112,11 +156,21 @@ export function Navbar({
                                 Profile
                             </Link>
 
+
+
                             <button
                                 onClick={handleLogout}
                                 className="Navbar-logout"
                             >
                                 Logout
+                            </button>
+
+                            <button
+                                className="Navbar-theme-toggle"
+                                onClick={toggleDarkMode}
+                                aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+                            >
+                                {darkMode ? "☀" : "☾"}
                             </button>
 
                         </div>
