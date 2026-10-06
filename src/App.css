@@ -318,7 +318,493 @@ input {
     }
 }
 
+/*profile avatar css*/
 
+/* 
+   ACCOUNT PANEL
+    */
+
+.account-panel {
+    position: absolute;
+    top: 70px;
+    right: 30px;
+    width: 340px;
+    padding: 20px;
+
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+    z-index: 100;
+}
+
+
+/* 
+   ACCOUNT PANEL HEADER
+   */
+
+.account-panel-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+.account-panel-header h2 {
+    margin: 0;
+
+    color: #111827;
+    font-size: 20px;
+}
+
+.account-panel-header p {
+    margin: 5px 0 0;
+
+    color: #667085;
+    font-size: 13px;
+}
+
+.account-panel-header button {
+    width: 30px;
+    height: 30px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 7px;
+
+    background: transparent;
+    color: #667085;
+
+    font-size: 24px;
+    line-height: 1;
+
+    cursor: pointer;
+}
+
+.account-panel-header button:hover {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+
+/* =========================================================
+   ACCOUNT MENU
+   ========================================================= */
+
+.account-panel-options {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.account-panel-options button {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+    color: #344054;
+
+    text-align: left;
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.account-panel-options button:hover {
+    background: #f4f6fb;
+    color: #302a9e;
+}
+
+
+/* =========================================================
+   BACK BUTTON
+   ========================================================= */
+
+.account-back-button {
+    padding: 6px 0;
+
+    border: none;
+    background: transparent;
+
+    color: #667085;
+
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.account-back-button:hover {
+    color: #302a9e;
+}
+
+
+/* =========================================================
+   PROFILE SECTION
+   ========================================================= */
+
+.account-profile h3,
+.account-security h3 {
+    margin: 16px 0 20px;
+
+    color: #111827;
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   PROFILE FORM
+   ========================================================= */
+
+.account-profile-form,
+.account-security-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.account-profile-form label,
+.account-security-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+
+    color: #344054;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.account-profile-form input,
+.account-security-form input {
+    width: 100%;
+
+    padding: 10px 11px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    background: white;
+    color: #172033;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.account-profile-form input:focus,
+.account-security-form input:focus {
+    border-color: #635bff;
+
+    box-shadow:
+        0 0 0 3px rgba(99, 91, 255, 0.10);
+}
+
+
+/* =========================================================
+   READ-ONLY EMAIL
+   ========================================================= */
+
+.account-profile-form input[readonly] {
+    background: #f8fafc;
+    color: #667085;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   PROFILE / SECURITY DESCRIPTION
+   ========================================================= */
+
+.account-security > p {
+    margin: -10px 0 20px;
+
+    color: #667085;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   PROFILE ACTION BUTTONS
+   ========================================================= */
+
+.account-profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+
+    margin-top: 22px;
+}
+
+.account-cancel-button,
+.account-save-button {
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.15s ease,
+        transform 0.15s ease;
+}
+
+
+/* Cancel button */
+
+.account-cancel-button {
+    border: 1px solid #d1d5db;
+
+    background: white;
+    color: #344054;
+}
+
+.account-cancel-button:hover {
+    background: #f8fafc;
+}
+
+
+/* Save button */
+
+.account-save-button {
+    border: none;
+
+    background: #5048d9;
+    color: white;
+}
+
+.account-save-button:hover {
+    background: #4338b8;
+    transform: translateY(-1px);
+}
+
+
+/* Disabled save button */
+
+.account-save-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+
+    transform: none;
+}
+
+
+/* =========================================================
+   PROFILE SUCCESS / ERROR MESSAGE
+   ========================================================= */
+
+.account-profile-message,
+.account-password-message {
+    margin: 14px 0 0;
+
+    padding: 9px 11px;
+
+    border-radius: 7px;
+
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+
+    color: #166534;
+
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   SECURITY FORM
+   ========================================================= */
+
+.account-security {
+    width: 100%;
+}
+
+.account-security-form {
+    margin-top: 4px;
+}
+
+
+/* =========================================================
+   DARK MODE - ACCOUNT PANEL
+   ========================================================= */
+
+.dark-mode .account-panel {
+    background: #1e293b;
+
+    border-color: #334155;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+
+/* Dark mode header */
+
+.dark-mode .account-panel-header h2 {
+    color: #f8fafc;
+}
+
+.dark-mode .account-panel-header p {
+    color: #94a3b8;
+}
+
+.dark-mode .account-panel-header button {
+    color: #94a3b8;
+}
+
+.dark-mode .account-panel-header button:hover {
+    background: #334155;
+    color: #f8fafc;
+}
+
+
+/* Dark mode menu */
+
+.dark-mode .account-panel-options button {
+    color: #cbd5e1;
+}
+
+.dark-mode .account-panel-options button:hover {
+    background: #334155;
+    color: #f8fafc;
+}
+
+
+/* Dark mode back button */
+
+.dark-mode .account-back-button {
+    color: #94a3b8;
+}
+
+.dark-mode .account-back-button:hover {
+    color: #a5b4fc;
+}
+
+
+/* Dark mode headings */
+
+.dark-mode .account-profile h3,
+.dark-mode .account-security h3 {
+    color: #f8fafc;
+}
+
+
+/* Dark mode labels */
+
+.dark-mode .account-profile-form label,
+.dark-mode .account-security-form label {
+    color: #cbd5e1;
+}
+
+
+/* Dark mode inputs */
+
+.dark-mode .account-profile-form input,
+.dark-mode .account-security-form input {
+    background: #0f172a;
+
+    border-color: #475569;
+
+    color: #f8fafc;
+}
+
+.dark-mode .account-profile-form input:focus,
+.dark-mode .account-security-form input:focus {
+    border-color: #818cf8;
+
+    box-shadow:
+        0 0 0 3px rgba(129, 140, 248, 0.15);
+}
+
+
+/* Dark mode read-only email */
+
+.dark-mode .account-profile-form input[readonly] {
+    background: #172033;
+    color: #94a3b8;
+}
+
+
+/* Dark mode security description */
+
+.dark-mode .account-security > p {
+    color: #94a3b8;
+}
+
+
+/* Dark mode cancel button */
+
+.dark-mode .account-cancel-button {
+    background: #1e293b;
+
+    border-color: #475569;
+
+    color: #cbd5e1;
+}
+
+.dark-mode .account-cancel-button:hover {
+    background: #334155;
+}
+
+
+/* Dark mode save button */
+
+.dark-mode .account-save-button {
+    background: #635bff;
+}
+
+.dark-mode .account-save-button:hover {
+    background: #5148d8;
+}
+
+
+/* Dark mode success message */
+
+.dark-mode .account-profile-message,
+.dark-mode .account-password-message {
+    background: #052e16;
+
+    border-color: #166534;
+
+    color: #bbf7d0;
+}
+
+
+/* =========================================================
+   ACCOUNT PANEL - MOBILE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .account-panel {
+        top: 64px;
+        right: 16px;
+        left: 16px;
+
+        width: auto;
+
+        padding: 18px;
+    }
+
+}
 
 
 .Hero {
@@ -2290,4 +2776,116 @@ input {
     transparent,
     #0f172a
   );
+}
+
+
+
+/*profile manage*/
+
+.account-panel {
+    position: absolute;
+    top: 70px;
+    
+    right: 350px;
+    width: 320px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    z-index: 100;
+}
+
+.account-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.account-panel-header h2 {
+    margin: 0;
+    color: #111827;
+    font-size: 20px;
+}
+
+.account-panel-header p {
+    margin: 5px 0 0;
+    color: #667085;
+    font-size: 13px;
+}
+
+.account-panel-header button {
+    border: none;
+    background: transparent;
+    color: #667085;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.account-panel-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.account-panel-options button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    text-align: left;
+    color: #344054;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.account-panel-options button:hover {
+    background: #f4f6fb;
+}
+
+/* =========================================================
+   DARK MODE - SEARCH ICON
+   ========================================================= */
+
+.dark-mode .Navbar-search svg {
+    width: 17px;
+    height: 17px;
+
+    display: block;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: #98a2b3;
+    stroke-width: 2;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+
+
+.dark-mode .Navbar-search svg {
+    width: 17px;
+    height: 17px;
+
+    display: block;
+    flex-shrink: 0;
+
+    fill: none;
+    stroke: #98a2b3;
+    stroke-width: 2;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.dark-mode .Hero-button {
+    background: white;
+    color: #201a35;
+}
+
+.dark-mode .Hero-button:hover {
+    background: white;
+    color: #201a35;
 }

@@ -148,15 +148,26 @@ userRouter.put("/me", authMiddleware, async (req, res, next) => {
     try {
         const db = getDb();
 
+        const updateFields = {};
+
+        if (req.body.name !== undefined) {
+            updateFields.name = req.body.name;
+        }
+
+        if (req.body.teachingSkills !== undefined) {
+            updateFields.teachingSkills = req.body.teachingSkills;
+        }
+
+        if (req.body.learningSkills !== undefined) {
+            updateFields.learningSkills = req.body.learningSkills;
+        }
+
         const result = await db.collection("users").updateOne(
             {
                 _id: new ObjectId(req.user.userId)
             },
             {
-                $set: {
-                    teachingSkills: req.body.teachingSkills,
-                    learningSkills: req.body.learningSkills
-                }
+                $set: updateFields
             }
         );
 
@@ -175,6 +186,62 @@ userRouter.put("/me", authMiddleware, async (req, res, next) => {
     }
 });
 
+// CHANGE PASSWORD
+
+userRouter.put("/change-password", authMiddleware, async (req, res, next) => {
+    const { currentPassword, newPassword } = req.body;
+
+    if (!currentPassword || !newPassword) {
+        return res.status(400).json({
+            message: "Current password and new password are required"
+        });
+    }
+
+    try {
+        const db = getDb();
+
+        const user = await db.collection("users").findOne({
+            _id: new ObjectId(req.user.userId)
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        const passwordMatches = await bcrypt.compare(
+            currentPassword,
+            user.password
+        );
+
+        if (!passwordMatches) {
+            return res.status(401).json({
+                message: "Current password is incorrect"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        await db.collection("users").updateOne(
+            {
+                _id: new ObjectId(req.user.userId)
+            },
+            {
+                $set: {
+                    password: hashedPassword
+                }
+            }
+        );
+
+        res.json({
+            message: "Password changed successfully"
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
 
 // GET USER BY ID
 
