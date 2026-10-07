@@ -8,10 +8,10 @@ const swapRequestRouter=require('./routes/swapRequestRoutes');
 const {connectToDatabase} = require("./config/db");
 
 const app=express();
+
 app.use(cors());
 
 app.use(express.json());
-
 
 app.use("/skills",skillRouter); 
 app.use("/skillName", skillRouter);
@@ -27,9 +27,10 @@ app.use((err, req, res, next) => {
     });
 });
 
-
 connectToDatabase();
-const PORT=3000;
-app.listen((PORT),()=>{
-    console.log(`SkillSwap backend is running on port http://localhost:${PORT}`);
-})
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`SkillSwap backend is running on port ${PORT}`);
+});
