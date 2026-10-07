@@ -1,9 +1,12 @@
-
 # SkillSwap
 
 SkillSwap is a full-stack skill exchange platform where users can learn skills from other people by teaching skills in return.
 
 Instead of paying for a course or mentor, users can connect with people who teach what they want to learn and exchange skills with each other.
+
+## 🚀 Live Demo
+
+**Live App:** https://skill-swap-rho-five.vercel.app
 
 ## Features
 
@@ -64,7 +67,6 @@ SkillSwap/
 │   ├── config/
 │   ├── middleware/
 │   ├── routes/
-│   ├── .env
 │   ├── app.js
 │   └── package.json
 │
@@ -143,12 +145,11 @@ Vite will provide a local URL where the frontend can be opened in the browser.
 
 ## Future Improvements
 
-- Real-time chat between user
+- Real-time chat between users
 - Skill swap scheduling
 - Better skill discovery and recommendations
-- Deployment with a production database and hosting
+- Notifications for swap requests and updates
 
 ## Author
 
 Rahul Kumar Chaudhary
-
