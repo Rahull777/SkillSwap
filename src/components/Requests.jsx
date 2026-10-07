@@ -8,7 +8,7 @@ export function Requests() {
         async function fetchRequests() {
             try {
                 const response = await fetch(
-                    "http://localhost:3000/swap-requests/received",
+                    "https://skillswap-backend-kkdd.onrender.com/swap-requests/received",
                     {
                         headers: {
                             "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -40,7 +40,7 @@ export function Requests() {
 
     async function handleAccept(requestId) {
         const response = await fetch(
-            `http://localhost:3000/swap-requests/${requestId}`,
+            `https://skillswap-backend-kkdd.onrender.com/swap-requests/${requestId}`,
             {
                 method: "PATCH",
                 headers: {
@@ -72,7 +72,7 @@ export function Requests() {
 
     async function handleReject(requestId) {
         const response = await fetch(
-            `http://localhost:3000/swap-requests/${requestId}`,
+            `https://skillswap-backend-kkdd.onrender.com/swap-requests/${requestId}`,
             {
                 method: "PATCH",
                 headers: {

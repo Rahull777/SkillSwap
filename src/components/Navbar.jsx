@@ -37,7 +37,7 @@ export function Navbar({
             const token = localStorage.getItem("token");
 
             try {
-                const response = await fetch("http://localhost:3000/users/me", {
+                const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -84,7 +84,7 @@ export function Navbar({
         }
 
         try {
-            const response = await fetch("http://localhost:3000/skills");
+            const response = await fetch("https://skillswap-backend-kkdd.onrender.com/skills");
             const skills = await response.json();
 
             const matchingSkill = skills.find((skill) =>
@@ -123,7 +123,7 @@ export function Navbar({
         const token = localStorage.getItem("token");
 
         try {
-            const response = await fetch("http://localhost:3000/users/me", {
+            const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -178,7 +178,7 @@ export function Navbar({
 
         try {
             const response = await fetch(
-                "http://localhost:3000/users/change-password",
+                "https://skillswap-backend-kkdd.onrender.com/users/change-password",
                 {
                     method: "PUT",
                     headers: {

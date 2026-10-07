@@ -7,7 +7,7 @@ export function SkillDetails() {
     const [skill, setSkill] = useState(null);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/skills/${skillName}`)
+        fetch(`https://skillswap-backend-kkdd.onrender.com/skills/${skillName}`)
             .then((response) => response.json())
             .then((data) => {
                 setSkill(data);

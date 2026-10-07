@@ -28,7 +28,7 @@ export function Signup() {
 
         setError("");
 
-        const response = await fetch("http://localhost:3000/users/register", {
+        const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

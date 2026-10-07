@@ -15,7 +15,7 @@ export function TeacherList() {
         async function fetchTeachers() {
             try {
                 const response = await fetch(
-                    `http://localhost:3000/teachers/${skillName}`
+                    `https://skillswap-backend-kkdd.onrender.com/teachers/${skillName}`
                 );
 
                 const data = await response.json();

@@ -7,7 +7,7 @@ export function MySwaps() {
     useEffect(() => {
         async function fetchSwaps() {
             const response = await fetch(
-                "http://localhost:3000/swap-requests/my-swaps",
+                "https://skillswap-backend-kkdd.onrender.com/swap-requests/my-swaps",
                 {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token")}`

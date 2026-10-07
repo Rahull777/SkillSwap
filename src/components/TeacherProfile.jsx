@@ -11,7 +11,7 @@ export function TeacherProfile() {
         async function fetchTeacher() {
             console.log("Token:", localStorage.getItem("token"));
             const response = await fetch(
-                `http://localhost:3000/users/${id}`,
+                `https://skillswap-backend-kkdd.onrender.com/users/${id}`,
                 {
                     headers: {
                         "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -33,7 +33,7 @@ export function TeacherProfile() {
 
 
     async function handleSwapRequest() {
-    const response = await fetch("http://localhost:3000/swap-requests", {
+    const response = await fetch("https://skillswap-backend-kkdd.onrender.com/swap-requests", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

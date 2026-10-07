@@ -18,7 +18,7 @@ export function Profile() {
     //so that data remains on page even if page refreshes
     useEffect(() => {
         async function fetchUser() {
-            const response = await fetch("http://localhost:3000/users/me", {
+            const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -48,7 +48,7 @@ export function Profile() {
 
         const updatedTeachingSkills = [...teachingskills, skill];
 
-        const response = await fetch("http://localhost:3000/users/me", {
+        const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -77,7 +77,7 @@ export function Profile() {
             return skill !== skilltoremove;
         });
 
-        const response = await fetch("http://localhost:3000/users/me", {
+        const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -116,7 +116,7 @@ export function Profile() {
 
         const updatedLearningSkills = [...learningskills, skill];
 
-        const response = await fetch("http://localhost:3000/users/me", {
+        const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -145,7 +145,7 @@ export function Profile() {
             return skill !== skilltoremove;
         });
 
-        const response = await fetch("http://localhost:3000/users/me", {
+        const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/me", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

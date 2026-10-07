@@ -6,7 +6,7 @@ export function ExploreSkills({ search }) {
 
     const [skills, setSkills] = useState([]);
     useEffect(() => {
-        fetch("http://localhost:3000/skills")
+        fetch("https://skillswap-backend-kkdd.onrender.com/skills")
             .then((response) => response.json())
             .then((data) => {
                 setSkills(data);

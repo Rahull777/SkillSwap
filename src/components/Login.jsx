@@ -17,7 +17,7 @@ export function Login({ setLoggedIn }) {
 
         setError("");
 
-        const response = await fetch("http://localhost:3000/users/login", {
+        const response = await fetch("https://skillswap-backend-kkdd.onrender.com/users/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
