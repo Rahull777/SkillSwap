@@ -48,6 +48,7 @@ swapRequestRouter.post("/", authMiddleware, async (req, res, next) => {
             receiverId: new ObjectId(receiverId),
             skill: skill,
             status: "pending",
+            meetingLink: null,
             createdAt: new Date()
         };
 
@@ -141,6 +142,47 @@ swapRequestRouter.patch("/:id", authMiddleware, async (req, res, next) => {
 
         res.json({
             message: `Swap request ${status} successfully`
+        });
+
+    } catch (error) {
+        next(error);
+    }
+});
+
+
+swapRequestRouter.put("/:id/meeting", authMiddleware, async (req, res, next) => {
+    try {
+        const db = getDb();
+
+        const { meetingLink } = req.body;
+
+        if (!meetingLink) {
+            return res.status(400).json({
+                message: "Meeting link is required"
+            });
+        }
+
+        const result = await db.collection("swapRequests").updateOne(
+            {
+                _id: new ObjectId(req.params.id),
+                requesterId: new ObjectId(req.user.userId),
+                status: "accepted"
+            },
+            {
+                $set: {
+                    meetingLink: meetingLink
+                }
+            }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).json({
+                message: "Accepted swap not found or you are not the requester"
+            });
+        }
+
+        res.json({
+            message: "Meeting link added successfully"
         });
 
     } catch (error) {
