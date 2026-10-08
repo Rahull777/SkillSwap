@@ -20,7 +20,6 @@ export function MySwaps() {
 
     const currentUserId = getUserIdFromToken();
 
-
     useEffect(() => {
         async function fetchSwaps() {
             const response = await fetch(
@@ -33,8 +32,6 @@ export function MySwaps() {
             );
 
             const data = await response.json();
-
-            console.log("My swaps:", data);
 
             if (response.ok) {
                 const sortedSwaps = [...data].sort(
@@ -70,8 +67,6 @@ export function MySwaps() {
         const data = await response.json();
 
         if (response.ok) {
-            console.log(data.message);
-
             setSwaps((currentSwaps) =>
                 currentSwaps.map((swap) =>
                     swap._id === activeSwapId
@@ -87,6 +82,7 @@ export function MySwaps() {
             setActiveSwapId(null);
         }
     }
+
     return (
         <div className="swaps-page">
 
@@ -99,114 +95,166 @@ export function MySwaps() {
                 <div className="swaps-empty">
                     <h3>No active swaps yet</h3>
                     <p>
-                        Once a swap request is accepted, your connection will appear here.
+                        Once a swap request is accepted,
+                        your connection will appear here.
                     </p>
                 </div>
             ) : (
                 <div className="swaps-list">
 
-                    {swaps.map((swap) => (
-                        <div className="swap-card" key={swap._id}>
+                    {swaps.map((swap) => {
 
-                            <div className="swap-card-header">
-                                <div>
-                                    <p className="swap-label">Skill Swap</p>
-                                    <h2>Swap with {swap.otherUser.name}</h2>
-                                </div>
+                        const isRequester =
+                            swap.requesterId.toString() === currentUserId;
 
-                                <span className="swap-status">
-                                    {swap.status}
-                                </span>
-                            </div>
-
-                            <div className="swap-skill">
-                                <p>You connected over</p>
-                                <strong>{swap.skill}</strong>
-                            </div>
-
-                            <div className="swap-skills">
-
-                                <div className="swap-skill-group">
-                                    <h3>They can teach</h3>
-
-                                    <div className="swap-skill-list">
-                                        {swap.otherUser.teachingSkills.map((skill) => (
-                                            <span key={skill}>{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                                <div className="swap-skill-group">
-                                    <h3>They want to learn</h3>
-
-                                    <div className="swap-skill-list">
-                                        {swap.otherUser.learningSkills.map((skill) => (
-                                            <span key={skill}>{skill}</span>
-                                        ))}
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <Link
-                                className="swap-profile-link"
-                                to={`/teacher/${swap.otherUser._id}/${swap.skill}`}
+                        return (
+                            <div
+                                className="swap-card"
+                                key={swap._id}
                             >
-                                View Profile
-                            </Link>
 
-                            {swap.meetingLink ? (
-                                <div className="meeting-ready">
-                                    <p>✓ Meeting is ready</p>
+                                <div className="swap-card-header">
 
-                                    <a
-                                        className="meeting-button"
-                                        href={swap.meetingLink}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
-                                        Join Meeting
-                                    </a>
+                                    <div>
+                                        <p className="swap-label">
+                                            Skill Swap
+                                        </p>
+
+                                        <h2>
+                                            Swap with {swap.otherUser.name}
+                                        </h2>
+                                    </div>
+
+                                    <span className="swap-status">
+                                        {swap.status}
+                                    </span>
+
                                 </div>
-                            ) : swap.requesterId.toString() === currentUserId ? (
-                                <>
-                                    <button
-                                        className="meeting-button"
-                                        onClick={() => setActiveSwapId(swap._id)}
-                                    >
-                                        Add Meeting Link
-                                    </button>
 
-                                    {activeSwapId === swap._id && (
-                                        <div className="meeting-form">
+                                <div className="swap-skill">
+                                    <p>You connected over</p>
+                                    <strong>{swap.skill}</strong>
+                                </div>
 
-                                            <input
-                                                type="url"
-                                                placeholder="Paste Google Meet or Zoom link"
-                                                value={meetingLink}
-                                                onChange={(event) =>
-                                                    setMeetingLink(event.target.value)
-                                                }
-                                            />
+                                <div className="swap-skills">
 
-                                            <button
-                                                className="meeting-save-button"
-                                                onClick={handleSaveMeetingLink}
-                                            >
-                                                Save Meeting Link
-                                            </button>
+                                    <div className="swap-skill-group">
 
+                                        <h3>They can teach</h3>
+
+                                        <div className="swap-skill-list">
+                                            {swap.otherUser.teachingSkills.map(
+                                                (skill) => (
+                                                    <span key={skill}>
+                                                        {skill}
+                                                    </span>
+                                                )
+                                            )}
                                         </div>
-                                    )}
-                                </>
-                            ) : (
-                                <div className="meeting-waiting">
-                                    <p>Waiting for the requester to create the meeting.</p>
-                                </div>
-                            )}
 
-                        </div>
-                    ))}
+                                    </div>
+
+                                    <div className="swap-skill-group">
+
+                                        <h3>They want to learn</h3>
+
+                                        <div className="swap-skill-list">
+                                            {swap.otherUser.learningSkills.map(
+                                                (skill) => (
+                                                    <span key={skill}>
+                                                        {skill}
+                                                    </span>
+                                                )
+                                            )}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <Link
+                                    className="swap-profile-link"
+                                    to={`/teacher/${swap.otherUser._id}/${swap.skill}`}
+                                >
+                                    View Profile
+                                </Link>
+
+                                {swap.meetingLink ? (
+
+                                    <div className="meeting-ready">
+
+                                        <p>
+                                            ✓ Meeting is ready
+                                        </p>
+
+                                        <a
+                                            className="meeting-button"
+                                            href={swap.meetingLink}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            Join Meeting
+                                        </a>
+
+                                    </div>
+
+                                ) : isRequester ? (
+
+                                    <>
+                                        <button
+                                            className="meeting-button"
+                                            onClick={() =>
+                                                setActiveSwapId(swap._id)
+                                            }
+                                        >
+                                            Add Meeting Link
+                                        </button>
+
+                                        {activeSwapId === swap._id && (
+
+                                            <div className="meeting-form">
+
+                                                <input
+                                                    type="url"
+                                                    placeholder="Paste Google Meet or Zoom link"
+                                                    value={meetingLink}
+                                                    onChange={(event) =>
+                                                        setMeetingLink(
+                                                            event.target.value
+                                                        )
+                                                    }
+                                                />
+
+                                                <button
+                                                    className="meeting-save-button"
+                                                    onClick={
+                                                        handleSaveMeetingLink
+                                                    }
+                                                >
+                                                    Save Meeting Link
+                                                </button>
+
+                                            </div>
+
+                                        )}
+                                    </>
+
+                                ) : (
+
+                                    <div className="meeting-waiting">
+
+                                        <p>
+                                            Waiting for the requester to
+                                            create the meeting.
+                                        </p>
+
+                                    </div>
+
+                                )}
+
+                            </div>
+                        );
+                    })}
 
                 </div>
             )}
