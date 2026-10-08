@@ -13,13 +13,12 @@ function getUserIdFromToken() {
     return payload.userId;
 }
 
-
 export function MySwaps() {
     const [swaps, setSwaps] = useState([]);
     const [meetingLink, setMeetingLink] = useState("");
     const [activeSwapId, setActiveSwapId] = useState(null);
-    const currentUserId = getUserIdFromToken();
 
+    const currentUserId = getUserIdFromToken();
 
 
     useEffect(() => {
@@ -50,33 +49,44 @@ export function MySwaps() {
     }, []);
 
     async function handleSaveMeetingLink() {
-    if (!meetingLink.trim()) {
-        return;
-    }
-
-    const response = await fetch(
-        `https://skillswap-backend-kkdd.onrender.com/swap-requests/${activeSwapId}/meeting`,
-        {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${localStorage.getItem("token")}`
-            },
-            body: JSON.stringify({
-                meetingLink: meetingLink.trim()
-            })
+        if (!meetingLink.trim()) {
+            return;
         }
-    );
 
-    const data = await response.json();
-    console.log("Status:", response.status);
-console.log("Response:", data);
+        const response = await fetch(
+            `https://skillswap-backend-kkdd.onrender.com/swap-requests/${activeSwapId}/meeting`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                },
+                body: JSON.stringify({
+                    meetingLink: meetingLink.trim()
+                })
+            }
+        );
 
-    if (response.ok) {
-        console.log(data.message);
+        const data = await response.json();
+
+        if (response.ok) {
+            console.log(data.message);
+
+            setSwaps((currentSwaps) =>
+                currentSwaps.map((swap) =>
+                    swap._id === activeSwapId
+                        ? {
+                            ...swap,
+                            meetingLink: meetingLink.trim()
+                        }
+                        : swap
+                )
+            );
+
+            setMeetingLink("");
+            setActiveSwapId(null);
+        }
     }
-}
-
     return (
         <div className="swaps-page">
 
@@ -88,10 +98,13 @@ console.log("Response:", data);
             {swaps.length === 0 ? (
                 <div className="swaps-empty">
                     <h3>No active swaps yet</h3>
-                    <p>Once a swap request is accepted, your connection will appear here.</p>
+                    <p>
+                        Once a swap request is accepted, your connection will appear here.
+                    </p>
                 </div>
             ) : (
                 <div className="swaps-list">
+
                     {swaps.map((swap) => (
                         <div className="swap-card" key={swap._id}>
 
@@ -142,36 +155,62 @@ console.log("Response:", data);
                                 View Profile
                             </Link>
 
-                            <button
-                                className="meeting-button"
-                                onClick={() => setActiveSwapId(swap._id)}
-                            >
-                                Add Meeting Link
-                            </button>
+                            {swap.meetingLink ? (
+                                <div className="meeting-ready">
+                                    <p>✓ Meeting is ready</p>
 
-                            {activeSwapId === swap._id && (
-    <div className="meeting-form">
-        <input
-            type="url"
-            placeholder="Paste Google Meet or Zoom link"
-            value={meetingLink}
-            onChange={(event) => setMeetingLink(event.target.value)}
-        />
+                                    <a
+                                        className="meeting-button"
+                                        href={swap.meetingLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Join Meeting
+                                    </a>
+                                </div>
+                            ) : swap.requesterId.toString() === currentUserId ? (
+                                <>
+                                    <button
+                                        className="meeting-button"
+                                        onClick={() => setActiveSwapId(swap._id)}
+                                    >
+                                        Add Meeting Link
+                                    </button>
 
-        <button
-    className="meeting-save-button"
-    onClick={handleSaveMeetingLink}
->
-    Save Meeting Link
-</button>
-    </div>
-)}
+                                    {activeSwapId === swap._id && (
+                                        <div className="meeting-form">
+
+                                            <input
+                                                type="url"
+                                                placeholder="Paste Google Meet or Zoom link"
+                                                value={meetingLink}
+                                                onChange={(event) =>
+                                                    setMeetingLink(event.target.value)
+                                                }
+                                            />
+
+                                            <button
+                                                className="meeting-save-button"
+                                                onClick={handleSaveMeetingLink}
+                                            >
+                                                Save Meeting Link
+                                            </button>
+
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <div className="meeting-waiting">
+                                    <p>Waiting for the requester to create the meeting.</p>
+                                </div>
+                            )}
 
                         </div>
                     ))}
+
                 </div>
             )}
 
         </div>
-    )
+    );
 }
