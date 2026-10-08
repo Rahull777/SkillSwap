@@ -149,6 +149,11 @@ swapRequestRouter.patch("/:id", authMiddleware, async (req, res, next) => {
     }
 });
 
+swapRequestRouter.get("/test-meeting-route", (req, res) => {
+    res.json({
+        message: "Meeting route is deployed"
+    });
+});
 
 swapRequestRouter.put("/:id/meeting", authMiddleware, async (req, res, next) => {
     try {
