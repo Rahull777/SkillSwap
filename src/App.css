@@ -1717,6 +1717,302 @@ input {
 }
 
 
+/* 
+   MEETING SECTION
+ */
+
+.meeting-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 16px;
+    margin-left: 10px;
+
+    padding: 9px 16px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.meeting-button:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(37, 99, 235, 0.25);
+}
+
+
+
+.meeting-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    width: 100%;
+    max-width: 650px;
+
+    margin-top: 14px;
+    padding: 14px;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+
+    background: #f8fafc;
+    box-sizing: border-box;
+}
+
+.meeting-form input {
+    flex: 1;
+    min-width: 0;
+
+    padding: 10px 12px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #111827;
+
+    font-size: 14px;
+    outline: none;
+
+    box-sizing: border-box;
+}
+
+.meeting-form input::placeholder {
+    color: #94a3b8;
+}
+
+.meeting-form input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+}
+
+
+
+.meeting-save-button {
+    flex-shrink: 0;
+
+    padding: 10px 15px;
+
+    border: none;
+    border-radius: 7px;
+
+    background: #111827;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.meeting-save-button:hover {
+    background: #1f2937;
+    transform: translateY(-1px);
+}
+
+
+
+.meeting-ready {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    width: 100%;
+    max-width: 650px;
+
+    margin-top: 18px;
+    padding: 14px 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+
+    background: #f0fdf4;
+}
+
+.meeting-ready p {
+    margin: 0;
+
+    color: #166534;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.meeting-ready .meeting-button {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+
+
+
+.meeting-waiting {
+    width: 100%;
+    max-width: 650px;
+
+    margin-top: 18px;
+    padding: 13px 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 10px;
+
+    background: #f8fafc;
+}
+
+.meeting-waiting p {
+    margin: 0;
+
+    color: #475569;
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+ /*
+   DARK MODE*/
+
+/* Add Meeting Link */
+
+body.dark-mode .meeting-button,
+.dark-mode .meeting-button {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+body.dark-mode .meeting-button:hover,
+.dark-mode .meeting-button:hover {
+    background: #60a5fa;
+}
+
+
+/* Meeting form */
+
+body.dark-mode .meeting-form,
+.dark-mode .meeting-form {
+    background: #182337;
+    border-color: #334155;
+}
+
+body.dark-mode .meeting-form input,
+.dark-mode .meeting-form input {
+    background: #111827;
+    border-color: #475569;
+    color: #f8fafc;
+}
+
+body.dark-mode .meeting-form input::placeholder,
+.dark-mode .meeting-form input::placeholder {
+    color: #94a3b8;
+}
+
+body.dark-mode .meeting-form input:focus,
+.dark-mode .meeting-form input:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.15);
+}
+
+
+/* Save button */
+
+body.dark-mode .meeting-save-button,
+.dark-mode .meeting-save-button {
+    background: #3b82f6;
+    color: #ffffff;
+}
+
+body.dark-mode .meeting-save-button:hover,
+.dark-mode .meeting-save-button:hover {
+    background: #2563eb;
+}
+
+
+/* Meeting ready */
+
+body.dark-mode .meeting-ready,
+.dark-mode .meeting-ready {
+    background: #132b20;
+    border-color: #166534;
+}
+
+body.dark-mode .meeting-ready p,
+.dark-mode .meeting-ready p {
+    color: #86efac;
+}
+
+
+/* Waiting */
+
+body.dark-mode .meeting-waiting,
+.dark-mode .meeting-waiting {
+    background: #182337;
+    border-color: #334155;
+}
+
+body.dark-mode .meeting-waiting p,
+.dark-mode .meeting-waiting p {
+    color: #cbd5e1;
+}
+
+
+
+@media (max-width: 600px) {
+
+    .meeting-button {
+        margin-left: 0;
+        margin-right: 8px;
+    }
+
+    .meeting-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .meeting-form input {
+        width: 100%;
+    }
+
+    .meeting-save-button {
+        width: 100%;
+    }
+
+    .meeting-ready {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .meeting-ready .meeting-button {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+
 
 
 /*teacher-profile page css*/
