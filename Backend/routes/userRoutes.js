@@ -7,34 +7,39 @@ const authMiddleware = require("../middleware/authMiddleware");
 
 const userRouter = express.Router();
 
-
-
 // REGISTER
-
-
 userRouter.post("/register", async (req, res, next) => {
     const { name, email, password } = req.body;
 
     if (
-    typeof name !== "string" ||
-    !name.trim() ||
-    typeof email !== "string" ||
-    !email.trim() ||
-    typeof password !== "string" ||
-    password.length === 0
-) {
-    return res.status(400).json({
-        message: "Valid name, email and password are required"
-    });
-}
+        typeof name !== "string" ||
+        !name.trim() ||
+        typeof email !== "string" ||
+        !email.trim() ||
+        typeof password !== "string" ||
+        password.length === 0
+    ) {
+        return res.status(400).json({
+            message: "Valid name, email and password are required"
+        });
+    }
 
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+
+    // Basic email format validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(trimmedEmail)) {
+        return res.status(400).json({
+            message: "Please provide a valid email address"
+        });
+    }
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-
         const db = getDb();
 
-        const existingUser = await db.collection("users").findOne({ email: email });
+        const existingUser = await db.collection("users").findOne({ email: trimmedEmail });
 
         if (existingUser) {
             return res.status(400).json({
@@ -43,8 +48,8 @@ userRouter.post("/register", async (req, res, next) => {
         }
 
         const result = await db.collection("users").insertOne({
-            name,
-            email,
+            name: trimmedName,
+            email: trimmedEmail,
             password: hashedPassword,
             teachingSkills: [],
             learningSkills: []
@@ -55,18 +60,12 @@ userRouter.post("/register", async (req, res, next) => {
             userId: result.insertedId
         });
 
-
-
     } catch (error) {
         next(error);
     }
 });
 
-
-
 // LOGIN
-
-
 userRouter.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
 
@@ -81,12 +80,13 @@ userRouter.post("/login", async (req, res, next) => {
         });
     }
 
+    const trimmedEmail = email.trim();
 
     try {
         const db = getDb();
 
         const user = await db.collection("users").findOne({
-            email: email
+            email: trimmedEmail
         });
 
         if (!user) {
@@ -127,11 +127,7 @@ userRouter.post("/login", async (req, res, next) => {
     }
 });
 
-
-
 // GET MY PROFILE
-
-
 userRouter.get("/me", authMiddleware, async (req, res, next) => {
     try {
         const db = getDb();
@@ -153,26 +149,30 @@ userRouter.get("/me", authMiddleware, async (req, res, next) => {
     }
 });
 
-
-
 // UPDATE MY PROFILE
-
-
 userRouter.put("/me", authMiddleware, async (req, res, next) => {
     try {
         const db = getDb();
-
         const updateFields = {};
 
         if (req.body.name !== undefined) {
-            updateFields.name = req.body.name;
+            if (typeof req.body.name !== "string" || !req.body.name.trim()) {
+                return res.status(400).json({ message: "Name cannot be empty" });
+            }
+            updateFields.name = req.body.name.trim();
         }
 
         if (req.body.teachingSkills !== undefined) {
+            if (!Array.isArray(req.body.teachingSkills)) {
+                return res.status(400).json({ message: "teachingSkills must be an array" });
+            }
             updateFields.teachingSkills = req.body.teachingSkills;
         }
 
         if (req.body.learningSkills !== undefined) {
+            if (!Array.isArray(req.body.learningSkills)) {
+                return res.status(400).json({ message: "learningSkills must be an array" });
+            }
             updateFields.learningSkills = req.body.learningSkills;
         }
 
@@ -201,7 +201,6 @@ userRouter.put("/me", authMiddleware, async (req, res, next) => {
 });
 
 // CHANGE PASSWORD
-
 userRouter.put("/change-password", authMiddleware, async (req, res, next) => {
     const { currentPassword, newPassword } = req.body;
 
@@ -258,8 +257,6 @@ userRouter.put("/change-password", authMiddleware, async (req, res, next) => {
 });
 
 // GET USER BY ID
-
-
 userRouter.get("/:id", authMiddleware, async (req, res, next) => {
     try {
         const db = getDb();
@@ -281,27 +278,37 @@ userRouter.get("/:id", authMiddleware, async (req, res, next) => {
     }
 });
 
-
 // CREATE USER
-
-
+// CREATE USER (Generic)
 userRouter.post("/", async (req, res, next) => {
     const newUser = req.body;
 
     if (
-        !newUser.name ||
-        !newUser.email ||
+        typeof newUser.name !== "string" ||
+        !newUser.name.trim() ||
+        typeof newUser.email !== "string" ||
+        !newUser.email.trim() ||
         !Array.isArray(newUser.teachingSkills) ||
         !Array.isArray(newUser.learningSkills)
     ) {
         return res.status(400).json({
-            message: "Name, email, teachingSkills and learningSkills are required"
+            message: "Valid name, email, teachingSkills and learningSkills are required"
+        });
+    }
+
+    newUser.name = newUser.name.trim();
+    newUser.email = newUser.email.trim();
+
+    // Optional email format check here too
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(newUser.email)) {
+        return res.status(400).json({
+            message: "Please provide a valid email address"
         });
     }
 
     try {
         const db = getDb();
-
         const result = await db.collection("users").insertOne(newUser);
 
         res.status(201).json({
@@ -313,6 +320,5 @@ userRouter.post("/", async (req, res, next) => {
         next(error);
     }
 });
-
 
 module.exports = userRouter;
