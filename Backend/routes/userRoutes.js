@@ -13,18 +13,20 @@ const userRouter = express.Router();
 
 
 userRouter.post("/register", async (req, res, next) => {
-    const { email, password } = req.body;
+    const { name, email, password } = req.body;
 
     if (
-        typeof email !== "string" ||
-        !email.trim() ||
-        typeof password !== "string" ||
-        password.length === 0
-    ) {
-        return res.status(400).json({
-            message: "Valid email and password are required"
-        });
-    }
+    typeof name !== "string" ||
+    !name.trim() ||
+    typeof email !== "string" ||
+    !email.trim() ||
+    typeof password !== "string" ||
+    password.length === 0
+) {
+    return res.status(400).json({
+        message: "Valid name, email and password are required"
+    });
+}
 
 
     try {
