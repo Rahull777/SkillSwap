@@ -13,13 +13,19 @@ const userRouter = express.Router();
 
 
 userRouter.post("/register", async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (
+        typeof email !== "string" ||
+        !email.trim() ||
+        typeof password !== "string" ||
+        password.length === 0
+    ) {
         return res.status(400).json({
-            message: "Name, email and password are required"
+            message: "Valid email and password are required"
         });
     }
+
 
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -62,11 +68,17 @@ userRouter.post("/register", async (req, res, next) => {
 userRouter.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
 
-    if (!email || !password) {
+    if (
+        typeof email !== "string" ||
+        !email.trim() ||
+        typeof password !== "string" ||
+        password.length === 0
+    ) {
         return res.status(400).json({
-            message: "Email and password are required"
+            message: "Valid email and password are required"
         });
     }
+
 
     try {
         const db = getDb();
@@ -268,9 +280,8 @@ userRouter.get("/:id", authMiddleware, async (req, res, next) => {
 });
 
 
-// =========================
 // CREATE USER
-// =========================
+
 
 userRouter.post("/", async (req, res, next) => {
     const newUser = req.body;
